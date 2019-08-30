@@ -25,3 +25,36 @@
 ---
 ### Don't try this at home
 - User should be able to track their form with real-time feedback
+
+---
+
+# Models
+
+---
+### User
+- username
+- email
+- password
+
+---
+### Exercise Plan
+- userId
+- goalType (enum)
+- current
+- goal
+- exercises (array)
+- public (Boolean)
+- comments (array) - sub documents
+- progress
+
+---
+### Exercise
+- type
+- activity
+- description
+
+---
+### Comment
+- userId
+- comment
+
