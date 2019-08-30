@@ -1,68 +1,27 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# User stories
 
-## Available Scripts
+---
+- User should be able to either login or register for an account
+- User should be able to see a navigation bar that leads to 'Create', 'Community', and 'Profile'
 
-In the project directory, you can run:
+---
 
-### `npm start`
+### CRUD
+- **C**: User should be able to create an exercise plan that details the type of plan (Strength and Conditioning or Cardio), the types of exercise, and a description for each
+- **R**: User should be able to see a list of other users' plans filtered by strength and conditioning or cardio
+- **R**: User should be able to click on an exercise plan and see a more descriptive version of it in a new page (or have it pop out)
+- **U**: User should be able to update their exercise plan so that they can input changes during their workout
+- **D**: User should be able to only delete their own plans or specific exercise within their plan
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
+- User should be able to choose if they want their plan to be public or not
+- User should be able to comment their suggestions on other people's plan
+- User should be able to upload photos of their progress pictures (weight loss pictures -- can choose to be private or public)
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+---
+### Stretch
+- User should be able to upload a video and draw on the video to have a guideline for their form (between 'nice to have' and 'stretch')
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+---
+### Don't try this at home
+- User should be able to track their form with real-time feedback
