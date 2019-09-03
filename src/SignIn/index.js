@@ -7,8 +7,8 @@ const SignIn = (props) => {
 	return (
 		<div>
 			<h1>Sign In Page</h1>
-			<Register />
-			<Login />
+			<Register userLog={props.userLog} />
+			<Login userLog={props.userLog} />
 		</div>
 	)
 }

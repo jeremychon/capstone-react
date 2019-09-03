@@ -31,10 +31,12 @@ class Login extends React.Component {
 		const parsedLogin = await login.json()
 		console.log(parsedLogin, '<---- parsedLogin');
 
-		if (parsedLogin.status.code === 200) {
+		if (parsedLogin.code === 200) {
 			console.log('User is logged in');
+			this.props.userLog(parsedLogin.data.firstName, parsedLogin.data.lastName)
 		} else {
 			console.log('Incorrect username or password');
+
 		}
 	}
 

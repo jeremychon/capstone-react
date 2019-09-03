@@ -33,8 +33,9 @@ class Register extends React.Component {
 		const parsedRegister = await register.json();
 		console.log(parsedRegister, '<---- parsedRegister');
 
-		if (parsedRegister.status.code === 200) {
+		if (parsedRegister.code === 200) {
 			console.log('logged in');
+			this.props.userLog(parsedRegister.data.firstName, parsedRegister.data.lastName)
 		} else {
 			console.log('A user with that email already exists');
 		}
