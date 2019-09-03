@@ -34,6 +34,7 @@ class Login extends React.Component {
 		if (parsedLogin.code === 200) {
 			console.log('User is logged in');
 			this.props.userLog(parsedLogin.data.firstName, parsedLogin.data.lastName)
+			this.props.history.push('/community')
 		} else {
 			console.log('Incorrect username or password');
 

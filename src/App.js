@@ -1,6 +1,7 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom'
 import SignIn from './SignIn'
-import MainComponent from './MainComponent'
+import Community from './Community'
 import './App.css';
 
 class App extends React.Component {
@@ -26,10 +27,12 @@ class App extends React.Component {
 	render() {
 		console.log(this.state, '<---- this.state in App');
 		return (
-			<div className="App">
-				{this.state.loggedIn ? null : <SignIn userLog={this.userLog}/>}
-				{this.state.loggedIn ? <MainComponent /> : null}
-			</div>
+			<main className="App">
+				<Switch>
+					<Route exact path='/' component={(props) => <SignIn {...props} userLog={this.userLog}/>} />
+					<Route exact path='/community' component={(props) => <Community {...props} />}/>
+				</Switch>
+			</main>
 		);
 
 	}
