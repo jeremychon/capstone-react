@@ -32,7 +32,8 @@
 
 ---
 ### User
-- username
+- firstName
+- lastName
 - email
 - password
 
@@ -42,9 +43,7 @@
 - goalType (enum)
 - current
 - goal
-- exercises (array)
 - public (Boolean)
-- comments (array) - sub documents
 - progress
 
 ---
@@ -52,9 +51,11 @@
 - type
 - activity
 - description
+- planId
 
 ---
 ### Comment
 - userId
 - comment
+- planId
 
