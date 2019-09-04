@@ -58,13 +58,11 @@ class CreatePlan extends React.Component {
 			<div>
 				<h1>Create Plan</h1>
 				<form onSubmit={this.handleSubmit}>
-					<input 
-						type="text" 
-						name="goalType" 
-						placeholder="Weight loss or Strength" 
-						value={this.state.goalType}
-						onChange={this.handleChange}
-					/><br />
+					<select name="goalType" onChange={this.handleChange}>
+						<option value="DEFAULT" hidden>Select an Option </option>
+						<option value="Weight loss">Weight loss</option>
+						<option value="Strength">Strength</option>
+					</select><br />
 					<input 
 						type="number" 
 						name="current" 
