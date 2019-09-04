@@ -42,6 +42,8 @@ class ShowPlan extends React.Component {
 					<div>{this.state.plan.goalType}</div>
 					<div>{this.state.plan.current}</div>
 					<div>{this.state.plan.goal}</div>
+					{this.state.plan.user === this.props.userId ? <button>Edit</button> : null}
+					{this.state.plan.user === this.props.userId ? <button>Delete</button> : null}
 				</div>
 			</div>
 		)

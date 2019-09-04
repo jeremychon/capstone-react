@@ -35,7 +35,7 @@ class Register extends React.Component {
 
 		if (parsedRegister.code === 200) {
 			console.log('logged in');
-			this.props.userLog(parsedRegister.data.firstName, parsedRegister.data.lastName)
+			this.props.userLog(parsedRegister.data.firstName, parsedRegister.data.lastName, parsedRegister.data._id)
 			this.props.history.push('/community')
 		} else {
 			console.log('A user with that email already exists');

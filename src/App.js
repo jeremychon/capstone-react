@@ -14,15 +14,17 @@ class App extends React.Component {
 		this.state = {
 			firstName: '',
 			lastName: '',
+			userId: '',
 			loggedIn: false
 		}
 	}
 
-	userLog = (fName, lName) => {
+	userLog = (fName, lName, id) => {
 		console.log(fName, lName, '<---- first and last');
 		this.setState({
 			firstName: fName,
 			lastName: lName,
+			userId: id,
 			loggedIn: true
 		})
 	}
@@ -50,7 +52,7 @@ class App extends React.Component {
 						/>
 						<Route 
 							exact path='/plan/:id' 
-							render={(props) => this.state.loggedIn ? <ShowPlan {...props} /> : <Redirect to='/' />}
+							render={(props) => this.state.loggedIn ? <ShowPlan {...props} userId={this.state.userId}/> : <Redirect to='/' />}
 						/>
 					</Route>
 				</Switch>
