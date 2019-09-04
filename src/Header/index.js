@@ -13,7 +13,8 @@ class Header extends React.Component {
 	toCommunity = (e) => {
 		e.preventDefault()
 
-		console.log('To Community');
+		const { history } = this.props
+		if ( history ) history.push('/community')
 	}
 
 	toProfile = (e) => {
