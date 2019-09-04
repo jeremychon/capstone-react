@@ -1,6 +1,5 @@
 import React from 'react'
 import CommunityList from './CommunityList'
-import { Link } from 'react-router-dom'
 
 class Community extends React.Component {
 	constructor() {
@@ -30,8 +29,10 @@ class Community extends React.Component {
 		const allPlansResponse = await allPlans.json()
 		console.log(allPlansResponse, '<---- all plans');
 
+		const sharedPlans = allPlansResponse.data.filter(plan => plan.public === true)
+
 		this.setState({
-			plans: allPlansResponse.data
+			plans: sharedPlans
 		})
 	}
 
@@ -65,15 +66,26 @@ class Community extends React.Component {
 		this.setState({filter: false})
 	}
 
+	showPlan = (id, e) => {
+		e.preventDefault()
+
+		this.props.history.push('/plan/' + id)
+	}
+
 	render() {
 		console.log(this.state, '<--- state in Community');
 		return (
 			<div>
 				<h2>Community Page</h2>
-				<div onClick={this.onlyStrength} style={{height: 100, width: 200, border: '1px solid black'}}>Strength</div>
-				<div onClick={this.onlyWeightLoss} style={{height: 100, width: 200, border: '1px solid black'}}>Weight loss</div>
-				<div onClick={this.allPlans} style={{height: 100, width: 200, border: '1px solid black'}}>All</div>
-				<CommunityList filter={this.state.filter} plans={this.state.plans} filterPlans={this.state.filterPlans}/>
+				<div onClick={this.onlyStrength} style={{height: 100, width: 200, border: '1px solid black', display: 'inline-block'}}>Strength</div>
+				<div onClick={this.onlyWeightLoss} style={{height: 100, width: 200, border: '1px solid black', display: 'inline-block'}}>Weight loss</div>
+				<div onClick={this.allPlans} style={{height: 100, width: 200, border: '1px solid black', display: 'inline-block'}}>All</div>
+				<CommunityList 
+					filter={this.state.filter} 
+					filterPlans={this.state.filterPlans}
+					plans={this.state.plans} 
+					showPlan={this.showPlan}
+				/>
 			</div>
 		)
 	}

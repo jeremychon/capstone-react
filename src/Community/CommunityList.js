@@ -5,7 +5,11 @@ const CommunityList = (props) => {
 	
 	const filteredPlans = props.filterPlans.map((plan) => {
 		return (
-			<div key={plan._id}>
+			<div 
+				key={plan._id} 
+				style={{border: '1px solid black', display: 'inline-block', width: 100}}
+				onClick={props.showPlan.bind(null, plan._id)}
+			>
 				<div>{plan.goalType}</div>
 				<div>{plan.current}</div>
 				<div>{plan.goal}</div><br />
@@ -15,7 +19,11 @@ const CommunityList = (props) => {
 
 	const allPlans = props.plans.map((plan) => {
 		return (
-			<div key={plan._id}>
+			<div 
+				key={plan._id} 
+				style={{border: '1px solid black', display: 'inline-block', width: 100}}
+				onClick={props.showPlan.bind(null, plan._id)}
+			>
 				<div>{plan.goalType}</div>
 				<div>{plan.current}</div>
 				<div>{plan.goal}</div><br />

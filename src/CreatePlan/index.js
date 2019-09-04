@@ -77,7 +77,7 @@ class CreatePlan extends React.Component {
 						value={this.state.goal}
 						onChange={this.handleChange}
 					/><br />
-					Public?
+					Share?
 					<input 
 						type="checkbox" 
 						name="public" 

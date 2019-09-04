@@ -27,9 +27,9 @@ class Header extends React.Component {
 		return (
 			<div>
 				<h1>Weight Mate</h1>
-				<div onClick={this.toCreate} style={{backgroundColor: 'lavender', height: 100, width: 100}}>Create</div>
-				<div onClick={this.toCommunity} style={{backgroundColor: 'teal', height: 100, width: 100}}>Community</div>
-				<div onClick={this.toProfile} style={{backgroundColor: 'tan', height: 100, width: 100}}>Profile</div>
+				<div onClick={this.toCreate} style={{backgroundColor: 'lavender', height: 100, width: 100, display: 'inline-block'}}>Create</div>
+				<div onClick={this.toCommunity} style={{backgroundColor: 'teal', height: 100, width: 100, display: 'inline-block'}}>Community</div>
+				<div onClick={this.toProfile} style={{backgroundColor: 'tan', height: 100, width: 100, display: 'inline-block'}}>Profile</div>
 			</div>
 		)
 	}
