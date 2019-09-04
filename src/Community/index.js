@@ -50,7 +50,7 @@ class Community extends React.Component {
 	onlyWeightLoss = (e) => {
 		e.preventDefault()
 
-		const onlyWL = this.state.plans.filter(plan => plan.goalType === 'Weight Loss')
+		const onlyWL = this.state.plans.filter(plan => plan.goalType === 'Weight loss')
 		console.log(onlyWL, '<--- onlyWL');
 
 		this.setState({

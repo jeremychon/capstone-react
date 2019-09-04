@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import SignIn from './SignIn'
 import Community from './Community'
 import CreatePlan from './CreatePlan'
+import ShowPlan from './ShowPlan'
 import Header from './Header'
 import './App.css';
 
@@ -33,7 +34,7 @@ class App extends React.Component {
 				<Switch>
 					<Route 
 						exact path='/' 
-						component={(props) => 
+						render={(props) => 
 							<SignIn {...props} 
 								userLog={this.userLog}/>}
 					/>
@@ -41,11 +42,15 @@ class App extends React.Component {
 						{this.state.loggedIn ? <Header /> : null}
 						<Route 
 							exact path='/community' 
-							component={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}
+							render={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}
+						/>
+						<Route
+							exact path='/plan-new' 
+							render={(props) => this.state.loggedIn ? <CreatePlan {...props} /> : <Redirect to='/' />}
 						/>
 						<Route 
-							exact path='/plan/new' 
-							component={(props) => this.state.loggedIn ? <CreatePlan {...props} /> : <Redirect to='/' />}
+							exact path='/plan/:id' 
+							render={(props) => this.state.loggedIn ? <ShowPlan {...props} /> : <Redirect to='/' />}
 						/>
 					</Route>
 				</Switch>

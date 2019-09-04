@@ -7,7 +7,7 @@ class Header extends React.Component {
 		e.preventDefault()
 		
 		const { history } = this.props
-		if ( history ) history.push('/plan/new')
+		if ( history ) history.push('/plan-new')
 	}
 
 	toCommunity = (e) => {

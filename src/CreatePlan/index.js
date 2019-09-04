@@ -24,10 +24,31 @@ class CreatePlan extends React.Component {
 		})
 	}
 
-	handleSubmit = (e) => {
+	handleSubmit = async (e) => {
 		e.preventDefault()
 
-		console.log('created plan');
+		try {
+			const createdPlan = await fetch('http://localhost:9000/plan/', {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(this.state),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (createdPlan.status !== 200) {
+				throw Error('createdPlan is not running')
+			}
+
+			const createdPlanResponse = await createdPlan.json()
+			console.log(createdPlanResponse, '<---- createdPlanResponse');
+
+			this.props.history.push('/plan/' + createdPlanResponse.data._id)
+
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 
