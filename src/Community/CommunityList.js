@@ -4,6 +4,7 @@ import React from 'react'
 const CommunityList = (props) => {
 	
 	const filteredPlans = props.filterPlans.map((plan) => {
+
 		return (
 			<div 
 				key={plan._id} 
@@ -12,12 +13,14 @@ const CommunityList = (props) => {
 			>
 				<div>{plan.goalType}</div>
 				<div>{plan.current}</div>
-				<div>{plan.goal}</div><br />
+				<div>{plan.goal}</div>
+				<div>Created by: {plan.user.firstName} {plan.user.lastName}</div><br />
 			</div>
 		)
 	})
 
 	const allPlans = props.plans.map((plan) => {
+
 		return (
 			<div 
 				key={plan._id} 
@@ -26,7 +29,8 @@ const CommunityList = (props) => {
 			>
 				<div>{plan.goalType}</div>
 				<div>{plan.current}</div>
-				<div>{plan.goal}</div><br />
+				<div>{plan.goal}</div>
+				<div>Created by: {plan.user.firstName} {plan.user.lastName}</div><br />
 			</div>
 		)
 	})

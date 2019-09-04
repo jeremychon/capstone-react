@@ -30,6 +30,7 @@ class Community extends React.Component {
 		console.log(allPlansResponse, '<---- all plans');
 
 		const sharedPlans = allPlansResponse.data.filter(plan => plan.public === true)
+		console.log(sharedPlans, '<---- sharedPlans');
 
 		this.setState({
 			plans: sharedPlans
