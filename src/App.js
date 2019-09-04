@@ -1,7 +1,9 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import SignIn from './SignIn'
 import Community from './Community'
+import CreatePlan from './CreatePlan'
+import Header from './Header'
 import './App.css';
 
 class App extends React.Component {
@@ -35,10 +37,17 @@ class App extends React.Component {
 							<SignIn {...props} 
 								userLog={this.userLog}/>}
 					/>
-					<Route 
-						exact path='/community' 
-						component={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}
-					/>
+					<Route>
+						{this.state.loggedIn ? <Header /> : null}
+						<Route 
+							exact path='/community' 
+							component={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}
+						/>
+						<Route 
+							exact path='/plan/new' 
+							component={(props) => this.state.loggedIn ? <CreatePlan {...props} /> : <Redirect to='/' />}
+						/>
+					</Route>
 				</Switch>
 			</main>
 		);
@@ -46,4 +55,4 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+export default withRouter(App);

@@ -20,7 +20,7 @@ class CreatePlan extends React.Component {
 
 	handleInputChange = (e) => {
 		this.setState({
-			public: {e.currentTarget.checked ? true : false}
+			public: e.currentTarget.checked ? true : false
 		})
 	}
 
@@ -32,6 +32,7 @@ class CreatePlan extends React.Component {
 
 
 	render() {
+		console.log(this.state, '<----- state in CreatePlan');
 		return (
 			<div>
 				<h1>Create Plan</h1>
