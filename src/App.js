@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import SignIn from './SignIn'
 import Community from './Community'
 import './App.css';
@@ -29,8 +29,16 @@ class App extends React.Component {
 		return (
 			<main className="App">
 				<Switch>
-					<Route exact path='/' component={(props) => <SignIn {...props} userLog={this.userLog}/>} />
-					<Route exact path='/community' component={(props) => <Community {...props} />}/>
+					<Route 
+						exact path='/' 
+						component={(props) => 
+							<SignIn {...props} 
+								userLog={this.userLog}/>}
+					/>
+					<Route 
+						exact path='/community' 
+						component={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}
+					/>
 				</Switch>
 			</main>
 		);
