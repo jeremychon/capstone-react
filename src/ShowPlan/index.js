@@ -75,7 +75,9 @@ class ShowPlan extends React.Component {
 		this.setState({creatingX: true})
 	}
 
-	addExercise = async (exercise) => {
+	addExercise = async (exercise, e) => {
+		e.preventDefault()
+
 		try {
 			exercise.planId = this.state.plan._id
 
@@ -96,10 +98,9 @@ class ShowPlan extends React.Component {
 			console.log(addedExerciseResponse, '<---- addedExerciseResponse');
 
 			this.setState({
-				exercises: [...this.state.exercises, addedExerciseResponse.data]
+				exercises: [...this.state.exercises, addedExerciseResponse.data],
+				creatingX: false
 			})
-
-			this.props.history.push('/plan/' + this.props.match.params.id)
 			
 		} catch (err) {
 			console.log(err);
@@ -214,7 +215,7 @@ class ShowPlan extends React.Component {
 						: null
 					}
 
-					<ExerciseList exercises={this.state.exercises}/>
+					<ExerciseList planUserId={this.state.plan.user} userId={this.props.userId} exercises={this.state.exercises}/>
 
 					{this.state.plan.user === this.props.userId ? 
 						<div>
