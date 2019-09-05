@@ -107,6 +107,32 @@ class ShowPlan extends React.Component {
 		}
 	}
 
+	deleteExercise = async (exerciseId, e) => {
+
+		try {
+			const deletedExercise = await fetch('http://localhost:9000/exercise/' + exerciseId, {
+				method: 'DELETE',
+				credentials: 'include'
+			})
+
+			if (deletedExercise.status !== 200) {
+				throw Error('deletedExercise is not running')
+			}
+
+			const deletedExerciseResponse = await deletedExercise.json()
+
+			const undeletedMovies = this.state.exercises.filter(exercise => exercise._id !== deletedExerciseResponse.data._id)
+
+			this.setState({
+				exercises: undeletedMovies
+			})
+
+		} catch (err) {
+			console.log(err);
+		}
+		
+	}
+
 	deletePlan = async (e) => {
 		e.preventDefault()
 
@@ -215,7 +241,12 @@ class ShowPlan extends React.Component {
 						: null
 					}
 
-					<ExerciseList planUserId={this.state.plan.user} userId={this.props.userId} exercises={this.state.exercises}/>
+					<ExerciseList 
+						planUserId={this.state.plan.user} 
+						userId={this.props.userId} 
+						exercises={this.state.exercises}
+						deleteExercise={this.deleteExercise}
+					/>
 
 					{this.state.plan.user === this.props.userId ? 
 						<div>

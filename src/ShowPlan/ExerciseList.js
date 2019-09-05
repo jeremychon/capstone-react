@@ -10,9 +10,15 @@ const ExerciseList = (props) => {
 					<br/>
 					<div>Type: {ex.type}</div>
 					<div>Activity: {ex.activity}</div>
-					<div>Description: {ex.description}</div>	
-					{props.userId === props.planUserId ? <button>Edit</button> : null}
-					{props.userId === props.planUserId ? <button>Delete</button> : null}
+					<div>Description: {ex.description}</div>
+					{props.userId === props.planUserId ? 
+						<button>Edit</button> 
+						: null}
+					{props.userId === props.planUserId ? 
+						<button 
+							onClick={props.deleteExercise.bind(null, ex._id)}
+						>Delete</button> 
+						: null}
 				</div>
 			)
 		})
@@ -26,8 +32,14 @@ const ExerciseList = (props) => {
 					<div>Type: {ex.type}</div>
 					<div>Activity: {ex.activity}</div>
 					<div>Description: {ex.description}</div>	
-					{props.userId === props.planUserId ? <button>Edit</button> : null}
-					{props.userId === props.planUserId ? <button>Delete</button> : null}
+					{props.userId === props.planUserId ? 
+						<button>Edit</button> 
+						: null}
+					{props.userId === props.planUserId ? 
+						<button 
+							onClick={props.deleteExercise.bind(null, ex._id)}
+						>Delete</button> 
+						: null}
 				</div>
 			)
 		})
