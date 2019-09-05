@@ -14,7 +14,9 @@ const CommunityList = (props) => {
 				<div>{plan.goalType}</div>
 				<div>{plan.current}</div>
 				<div>{plan.goal}</div>
-				<div>Created by: {plan.user.firstName} {plan.user.lastName}</div><br />
+				<div>Created by: {plan.user.firstName} {plan.user.lastName}</div>
+				
+				<br />
 			</div>
 		)
 	})

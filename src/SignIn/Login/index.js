@@ -29,7 +29,6 @@ class Login extends React.Component {
 		})
 
 		const parsedLogin = await login.json()
-		console.log(parsedLogin, '<---- parsedLogin');
 
 		if (parsedLogin.code === 200) {
 			console.log('User is logged in');
@@ -43,7 +42,6 @@ class Login extends React.Component {
 
 
 	render() {
-		console.log(this.state, '<---- this.state in Login');
 		return(
 			<div>
 				<h2>Login</h2>

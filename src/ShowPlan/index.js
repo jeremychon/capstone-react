@@ -1,4 +1,6 @@
 import React from 'react'
+import CreateExercise from '../CreateExercise'
+import ExerciseList from './ExerciseList'
 
 class ShowPlan extends React.Component {
 	constructor() {
@@ -6,6 +8,8 @@ class ShowPlan extends React.Component {
 
 		this.state = {
 			editing: false,
+			creatingX: false,
+			exercises: [],
 			plan: {},
 			goalType: '',
 			current: '',
@@ -16,6 +20,7 @@ class ShowPlan extends React.Component {
 
 	componentDidMount() {
 		this.getPlan()
+		this.getExercises()
 	}
 
 	getPlan = async () => {
@@ -39,10 +44,66 @@ class ShowPlan extends React.Component {
 		})
 	}
 
+	getExercises = async () => {
+		const { id } = this.props.match.params
+
+		const allExercises = await fetch('http://localhost:9000/exercise/', {
+			method: 'GET',
+			credentials: 'include'
+		})
+
+		if (allExercises.status !== 200) {
+			throw Error('allExercises is not running')
+		}
+
+		const allExercisesResponse = await allExercises.json()
+
+		const planExercises = allExercisesResponse.data.filter(exercise => exercise.planId === id)
+
+		this.setState({exercises: planExercises})
+	}
+
 	editingToggle = (e) => {
 		e.preventDefault()
 
 		this.setState({editing: true})
+	}
+
+	creatingToggle = (e) => {
+		e.preventDefault()
+
+		this.setState({creatingX: true})
+	}
+
+	addExercise = async (exercise) => {
+		try {
+			exercise.planId = this.state.plan._id
+
+			const addedExercise = await fetch('http://localhost:9000/exercise/', {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify(exercise),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (addedExercise.status !== 200) {
+				throw Error('createdExercise is not running')
+			}
+
+			const addedExerciseResponse = await addedExercise.json()
+			console.log(addedExerciseResponse, '<---- addedExerciseResponse');
+
+			this.setState({
+				exercises: [...this.state.exercises, addedExerciseResponse.data]
+			})
+
+			this.props.history.push('/plan/' + this.props.match.params.id)
+			
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	deletePlan = async (e) => {
@@ -59,6 +120,8 @@ class ShowPlan extends React.Component {
 
 		this.props.history.push('/community')
 	}
+	
+	// ================= CREATING THE PLAN ================= //
 
 	handleChange = (e) => {
 		this.setState({
@@ -101,6 +164,8 @@ class ShowPlan extends React.Component {
 			plan: updatedPlanResponse.data
 		})
 	}
+
+	// ================= CREATING THE PLAN ================= //
 
 	render() {
 		console.log(this.state, '<---- this.state in ShowPlan');
@@ -148,6 +213,15 @@ class ShowPlan extends React.Component {
 						</form> 
 						: null
 					}
+
+					<ExerciseList exercises={this.state.exercises}/>
+
+					{this.state.plan.user === this.props.userId ? 
+						<div>
+							<p onClick={this.creatingToggle}>+ Add Exercise</p>
+							{this.state.creatingX ? <CreateExercise addExercise={this.addExercise}/> : null}
+						</div>
+					: null}
 			</div>
 		)
 	}
