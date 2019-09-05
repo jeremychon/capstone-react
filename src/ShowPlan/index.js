@@ -11,10 +11,15 @@ class ShowPlan extends React.Component {
 			creatingX: false,
 			exercises: [],
 			plan: {},
+			// USED FOR EDITING PLAN
 			goalType: '',
 			current: '',
 			goal:'',
-			public: false
+			public: false,
+			// USED FOR EDITING EXERCISES
+			type: '',
+			activity: '',
+			description: ''
 		}
 	}
 
@@ -133,6 +138,45 @@ class ShowPlan extends React.Component {
 		
 	}
 
+	// ================= EDIT EXERCISE ================= //
+
+	updateExercise = async (exercise) => {
+		console.log('hitting update exercise');
+		console.log(exercise, '<---- exercise in updateExercise');
+		try {
+			const updatedExercise = await fetch('http://localhost:9000/exercise/' + exercise.id, {
+				method: 'PUT',
+				credentials: 'include',
+				body: JSON.stringify(exercise),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (updatedExercise.status !== 200) {
+				throw Error('updatedExercise is not running')
+			}
+
+			const updatedExerciseResponse = await updatedExercise.json()
+
+			const editedExerciseArray = this.state.exercises.map((exercise) => {
+				if (exercise._id === updatedExerciseResponse.data._id) {
+					exercise = updatedExerciseResponse.data
+				}
+
+				return exercise
+			})
+
+			this.setState({
+				exercises: editedExerciseArray
+			})
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	// ================= DELETE PLAN ================= //
+
 	deletePlan = async (e) => {
 		e.preventDefault()
 
@@ -148,7 +192,7 @@ class ShowPlan extends React.Component {
 		this.props.history.push('/community')
 	}
 	
-	// ================= CREATING THE PLAN ================= //
+	// ================= EDIT PLAN ================= //
 
 	handleChange = (e) => {
 		this.setState({
@@ -192,7 +236,7 @@ class ShowPlan extends React.Component {
 		})
 	}
 
-	// ================= CREATING THE PLAN ================= //
+	// ============================================= //
 
 	render() {
 		console.log(this.state, '<---- this.state in ShowPlan');
@@ -212,7 +256,7 @@ class ShowPlan extends React.Component {
 					{this.state.editing ? 
 						<form onSubmit={this.handleSubmit}>
 							<select name="goalType" onChange={this.handleChange}>
-								<option defaultValue={this.state.goalType}>{this.state.plan.goalType}</option>
+								<option defaultValue={this.state.plan.goalType}>{this.state.plan.goalType}</option>
 								<option value={this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}>{this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}</option>
 							</select>
 							<input 
@@ -246,6 +290,7 @@ class ShowPlan extends React.Component {
 						userId={this.props.userId} 
 						exercises={this.state.exercises}
 						deleteExercise={this.deleteExercise}
+						updateExercise={this.updateExercise}
 					/>
 
 					{this.state.plan.user === this.props.userId ? 

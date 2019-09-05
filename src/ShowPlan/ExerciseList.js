@@ -1,4 +1,5 @@
 import React from 'react'
+import EditPopUp from './EditPopUp'
 
 const ExerciseList = (props) => {
 
@@ -12,7 +13,7 @@ const ExerciseList = (props) => {
 					<div>Activity: {ex.activity}</div>
 					<div>Description: {ex.description}</div>
 					{props.userId === props.planUserId ? 
-						<button>Edit</button> 
+						<EditPopUp updateExercise={props.updateExercise} exercise={ex}/> 
 						: null}
 					{props.userId === props.planUserId ? 
 						<button 
@@ -33,7 +34,7 @@ const ExerciseList = (props) => {
 					<div>Activity: {ex.activity}</div>
 					<div>Description: {ex.description}</div>	
 					{props.userId === props.planUserId ? 
-						<button>Edit</button> 
+						<EditPopUp updateExercise={props.updateExercise} exercise={ex}/> 
 						: null}
 					{props.userId === props.planUserId ? 
 						<button 
