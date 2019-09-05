@@ -45,6 +45,21 @@ class ShowPlan extends React.Component {
 		this.setState({editing: true})
 	}
 
+	deletePlan = async (e) => {
+		e.preventDefault()
+
+		const deletedPlan = await fetch('http://localhost:9000/plan/' + this.state.plan._id, {
+			method: 'DELETE',
+			credentials: 'include'
+		})
+
+		if (deletedPlan.status !== 200) {
+			throw Error('deletedPlan is not running')
+		}
+
+		this.props.history.push('/community')
+	}
+
 	handleChange = (e) => {
 		this.setState({
 			[e.currentTarget.name]: e.currentTarget.value
@@ -98,7 +113,7 @@ class ShowPlan extends React.Component {
 						<div>{this.state.plan.current}</div>
 						<div>{this.state.plan.goal}</div>
 						{this.state.plan.user === this.props.userId ? <button onClick={this.editingToggle}>Edit</button> : null}
-						{this.state.plan.user === this.props.userId ? <button>Delete</button> : null}
+						{this.state.plan.user === this.props.userId ? <button onClick={this.deletePlan}>Delete</button> : null}
 						</div>
 					}
 
