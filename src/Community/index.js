@@ -27,10 +27,8 @@ class Community extends React.Component {
 		}
 
 		const allPlansResponse = await allPlans.json()
-		console.log(allPlansResponse, '<---- all plans');
 
 		const sharedPlans = allPlansResponse.data.filter(plan => plan.public === true)
-		console.log(sharedPlans, '<---- sharedPlans');
 
 		this.setState({
 			plans: sharedPlans
@@ -53,7 +51,6 @@ class Community extends React.Component {
 		e.preventDefault()
 
 		const onlyWL = this.state.plans.filter(plan => plan.goalType === 'Weight loss')
-		console.log(onlyWL, '<--- onlyWL');
 
 		this.setState({
 			filterPlans: onlyWL,
@@ -74,7 +71,7 @@ class Community extends React.Component {
 	}
 
 	render() {
-		console.log(this.state, '<--- state in Community');
+		// console.log(this.state, '<--- state in Community');
 		return (
 			<div>
 				<h2>Community Page</h2>

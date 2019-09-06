@@ -153,8 +153,6 @@ class ShowPlan extends React.Component {
 	// ================= EDIT EXERCISE ================= //
 
 	updateExercise = async (exercise) => {
-		console.log('hitting update exercise');
-		console.log(exercise, '<---- exercise in updateExercise');
 		try {
 			const updatedExercise = await fetch('http://localhost:9000/exercise/' + exercise.id, {
 				method: 'PUT',
@@ -240,7 +238,6 @@ class ShowPlan extends React.Component {
 		}
 
 		const updatedPlanResponse = await updatedPlan.json()
-		console.log(updatedPlanResponse, '<---- updatedPlanResponse');
 
 		this.setState({
 			editing: false,
@@ -251,17 +248,16 @@ class ShowPlan extends React.Component {
 	// ============================================= //
 
 	render() {
-		console.log(this.state, '<---- this.state in ShowPlan');
+		// console.log(this.state, '<---- this.state in ShowPlan');
 		return (
 			<div>
 				<h1>Show Plan</h1>
 					{this.state.editing ? null : 
-						<div>
-						<div>{this.state.plan.goalType}</div>
-						<div>{this.state.plan.current}</div>
-						<div>{this.state.plan.goal}</div>
-						{this.state.plan.user === this.props.userId ? <button onClick={this.editingToggle}>Edit</button> : null}
-						{this.state.plan.user === this.props.userId ? <button onClick={this.deletePlan}>Delete</button> : null}
+						<div style={{border: '1px solid black'}}>
+							<div>Goal: {this.state.plan.goalType}</div>
+							<div>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</div>
+							{this.state.plan.user === this.props.userId ? <button onClick={this.editingToggle}>Edit</button> : null}
+							{this.state.plan.user === this.props.userId ? <button onClick={this.deletePlan}>Delete</button> : null}
 						</div>
 					}
 

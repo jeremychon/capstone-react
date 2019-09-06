@@ -47,7 +47,6 @@ class Header extends React.Component {
 					position='bottom center'
 					on='hover'
 					closeOnDocumentClick
-					cursor='pointer'
 					mouseEnterDelay={0}
 					mouseLeaveDelay={10}
 					arrow={false}

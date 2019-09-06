@@ -16,7 +16,10 @@ class App extends React.Component {
 			firstName: '',
 			lastName: '',
 			userId: '',
-			loggedIn: false
+			loggedIn: false,
+			squat: 0,
+			deadlift: 0,
+			bench: 0
 		}
 	}
 
@@ -27,12 +30,20 @@ class App extends React.Component {
 			lastName: lName,
 			userId: id,
 			loggedIn: true,
-			profileSwitch: true
+			profileSwitch: true,
 		})
 	}
 
 	showUserPlans = (planShow) => {
 		this.setState({profileSwitch: planShow})
+	}
+
+	updateLifts = (s, d, b) => {
+		this.setState({
+			squat: s,
+			deadlift: d,
+			bench: b
+		})
 	}
 
 	render() {
@@ -54,11 +65,17 @@ class App extends React.Component {
 						/>
 						<Route
 							exact path='/plan-new' 
-							render={(props) => this.state.loggedIn ? <CreatePlan {...props} /> : <Redirect to='/' />}
+							render={(props) => this.state.loggedIn ? <CreatePlan {...props} updateLifts={this.updateLifts}/> : <Redirect to='/' />}
 						/>
 						<Route 
 							exact path='/plan/:id' 
-							render={(props) => this.state.loggedIn ? <ShowPlan {...props} userId={this.state.userId}/> : <Redirect to='/' />}
+							render={(props) => this.state.loggedIn ? 
+								<ShowPlan {...props} 
+									userId={this.state.userId}
+									squat={this.state.squat}
+									deadlift={this.state.deadlift}
+									bench={this.state.bench}
+								/> : <Redirect to='/' />}
 						/>
 						<Route 
 							exact path='/user/:id' 

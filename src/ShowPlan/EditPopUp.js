@@ -30,13 +30,12 @@ class EditPopUp extends React.Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault()
-		console.log(this.props, '<--- props in edit pop up');
 
 		this.props.updateExercise(this.state)
 	}
 	
 	render() {
-		console.log(this.state, '<--- state in edit pop up');
+		// console.log(this.state, '<--- state in edit pop up');
 		return (
 			<Popup modal trigger={open => (<button>Edit</button>)}>
 				{close => (

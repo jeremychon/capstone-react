@@ -7,6 +7,7 @@ class CreateExercise extends React.Component {
 		this.state = {
 			type: '',
 			activity: '',
+			sets: [],
 			description: ''
 		}
 	}
@@ -18,28 +19,46 @@ class CreateExercise extends React.Component {
 	}
 
 	render() {
-		console.log(this.state, '<---- state in CreateExercise');
+		// console.log(this.state, '<---- state in CreateExercise');
 		return (
 			<div>
 				<form onSubmit={this.props.addExercise.bind(null, this.state)}>
-					<select name="type" onChange={this.handleChange}>
+					<select required name="type" onChange={this.handleChange}>
 						<option value="DEFAULT" hidden>Select an Option </option>
 						<option value="Strength & Conditioning">Strength & Conditioning</option>
 						<option value="Cardio">Cardio</option>
 					</select><br />
-					<input 
-						type="text" 
-						name="activity" 
-						placeholder="Activity" 
+					Exercise: <input 
+						list="activity" 
+						name="activity"  
 						value={this.state.activity}
 						onChange={this.handleChange}
-					/><br />
-					<textarea  
-						name="description" 
-						placeholder="e.g. Sets, Reps, Duration, etc." 
-						value={this.state.description}
-						onChange={this.handleChange}
-					/><br />
+					/>
+					{this.state.type === 'Strength & Conditioning' ? 
+						<datalist id="activity">
+							<option value="Squat" />
+							<option value="Deadlift" />
+							<option value="Bench" />
+						</datalist>
+					: null}
+					{this.state.type === 'Cardio' ? 
+						<div>
+							<datalist id="activity">
+								<option value="Run" />
+								<option value="Bike" />
+								<option value="Swim" />
+							</datalist>
+							<div>
+								Notes: 
+								<textarea 
+									name="description" 
+									value={this.state.description} 
+									placeholder="e.g. Duration, Distance, etc." 
+									onChange={this.handleChange}
+								/>
+							</div>
+						</div>
+					: null}<br />
 					<button>Create</button>
 				</form>
 			</div>

@@ -7,9 +7,6 @@ class CreatePlan extends React.Component {
 		this.state = {
 			goalType: '',
 			current: 0,
-			squat: 0,
-			deadlift: 0,
-			bench: 0,
 			goal: 0,
 			public: false
 		}
@@ -29,6 +26,9 @@ class CreatePlan extends React.Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault()
+		
+		const { squat, deadlift, bench } = this.state
+		this.props.updateLifts(squat, deadlift, bench)
 
 		try {
 			const createdPlan = await fetch('http://localhost:9000/plan/', {
@@ -45,7 +45,6 @@ class CreatePlan extends React.Component {
 			}
 
 			const createdPlanResponse = await createdPlan.json()
-			console.log(createdPlanResponse, '<---- createdPlanResponse');
 
 			this.props.history.push('/plan/' + createdPlanResponse.data._id)
 
@@ -66,27 +65,18 @@ class CreatePlan extends React.Component {
 						<option value="Weight loss">Weight loss</option>
 						<option value="Strength">Strength</option>
 					</select><br />
-					<input 
+					Current: <input 
 						type="number" 
 						name="current" 
-						placeholder="Current Total" 
 						value={this.state.current}
 						onChange={this.handleChange}
-					/><br />
-					{this.state.goalType === 'Strength' ? 
-						<div>
-							<input type="number" name='squat' value={this.state.squat}/> lbs
-							<input type="number" name='deadlift' value={this.state.deadlift}/> lbs
-							<input type="number" name='bench' value={this.state.bench}/> lbs
-						</div>
-					: null}
-					<input 
+					/> lbs <br />
+					Goal: <input 
 						type="number" 
-						name="goal" 
-						placeholder="Goal Total" 
+						name="goal"  
 						value={this.state.goal}
 						onChange={this.handleChange}
-					/><br />
+					/> lbs <br />
 					Share?
 					<input 
 						type="checkbox" 
