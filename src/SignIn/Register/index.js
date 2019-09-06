@@ -8,7 +8,8 @@ class Register extends React.Component {
 			firstName: '',
 			lastName: '',
 			email: '',
-			password: ''
+			password: '',
+			userExists: false
 		}
 	}
 
@@ -37,7 +38,7 @@ class Register extends React.Component {
 			this.props.userLog(parsedRegister.data.firstName, parsedRegister.data.lastName, parsedRegister.data._id)
 			this.props.history.push('/community')
 		} else {
-			console.log('A user with that email already exists');
+			this.setState({userExists: true})
 		}
 	}
 
@@ -46,6 +47,7 @@ class Register extends React.Component {
 		return (
 			<div>
 				<h2>Register</h2>
+				{this.state.userExists ? <div>A user with that email already exists</div> : null}
 				<form onSubmit={this.handleSubmit}>
 					<input 
 						type='text' 

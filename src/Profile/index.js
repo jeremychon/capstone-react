@@ -37,12 +37,28 @@ class Profile extends React.Component {
 		})
 	}
 
+	showPlan = (id, e) => {
+		e.preventDefault()
+
+		this.props.history.push('/plan/' + id)
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>{this.props.firstName} {this.props.lastName}'s Profile</h1>
-				{this.props.profileSwitch ? <ProfilePlan plans={this.state.plans}/> : null}
-				{this.props.profileSwitch ? null : <ProfileProgress plans={this.state.plans}/>}
+				{this.props.profileSwitch ? 
+					<ProfilePlan 
+						showPlan={this.showPlan} 
+						plans={this.state.plans}
+					/> : null
+				}
+				{this.props.profileSwitch ? 
+					null : 
+					<ProfileProgress 
+						plans={this.state.plans}
+					/>
+				}
 			</div>
 		)
 	}

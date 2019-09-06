@@ -6,6 +6,7 @@ const ProfilePlan = (props) => {
 			<div 
 				key={plan._id} 
 				style={{border: '1px solid black', display: 'inline-block', width: 100}}
+				onClick={props.showPlan.bind(null, plan._id)}
 			>
 				<div>{plan.goalType}</div>
 				<div>{plan.current}</div>

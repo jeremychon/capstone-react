@@ -7,6 +7,9 @@ class CreatePlan extends React.Component {
 		this.state = {
 			goalType: '',
 			current: 0,
+			squat: 0,
+			deadlift: 0,
+			bench: 0,
 			goal: 0,
 			public: false
 		}
@@ -70,6 +73,13 @@ class CreatePlan extends React.Component {
 						value={this.state.current}
 						onChange={this.handleChange}
 					/><br />
+					{this.state.goalType === 'Strength' ? 
+						<div>
+							<input type="number" name='squat' value={this.state.squat}/> lbs
+							<input type="number" name='deadlift' value={this.state.deadlift}/> lbs
+							<input type="number" name='bench' value={this.state.bench}/> lbs
+						</div>
+					: null}
 					<input 
 						type="number" 
 						name="goal" 

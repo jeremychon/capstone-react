@@ -6,7 +6,8 @@ class Login extends React.Component {
 
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			correctLog: true
 		}
 	}
 
@@ -35,7 +36,7 @@ class Login extends React.Component {
 			this.props.userLog(parsedLogin.data.firstName, parsedLogin.data.lastName, parsedLogin.data._id)
 			this.props.history.push('/community')
 		} else {
-			console.log('Incorrect username or password');
+			this.setState({correctLog: false})
 
 		}
 	}
@@ -45,6 +46,7 @@ class Login extends React.Component {
 		return(
 			<div>
 				<h2>Login</h2>
+				{this.state.correctLog ? null : <div>Incorrect username and/or password</div>}
 				<form onSubmit={this.handleSubmit}>
 					<input 
 						type="text" 

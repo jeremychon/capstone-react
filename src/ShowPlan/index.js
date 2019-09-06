@@ -47,7 +47,9 @@ class ShowPlan extends React.Component {
 
 		this.setState({
 			plan: foundPlanResponse.data,
-			goalType: foundPlanResponse.data.goalType
+			goalType: foundPlanResponse.data.goalType,
+			current: foundPlanResponse.data.current,
+			goal: foundPlanResponse.data.goal
 		})
 	}
 
