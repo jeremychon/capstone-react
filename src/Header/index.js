@@ -20,7 +20,8 @@ class Header extends React.Component {
 	toProfile = (e) => {
 		e.preventDefault()
 
-		console.log('To Profile');
+		const { history } = this.props
+		if ( history ) history.push('/user/' + this.props.userId)
 	}
 
 	render() {

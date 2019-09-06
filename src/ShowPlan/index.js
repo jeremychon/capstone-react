@@ -28,6 +28,8 @@ class ShowPlan extends React.Component {
 		this.getExercises()
 	}
 
+	// ================= GET ALL PLANS ================= //
+
 	getPlan = async () => {
 		const { id } = this.props.match.params
 
@@ -49,6 +51,8 @@ class ShowPlan extends React.Component {
 		})
 	}
 
+	// ================= GET ALL EXERCISES ================= //
+
 	getExercises = async () => {
 		const { id } = this.props.match.params
 
@@ -68,6 +72,8 @@ class ShowPlan extends React.Component {
 		this.setState({exercises: planExercises})
 	}
 
+	// === DETERMINE IF I'M EDITING OR CREATING === //
+
 	editingToggle = (e) => {
 		e.preventDefault()
 
@@ -79,6 +85,8 @@ class ShowPlan extends React.Component {
 
 		this.setState({creatingX: true})
 	}
+
+	// ================= CREATE EXERCISE ================= //
 
 	addExercise = async (exercise, e) => {
 		e.preventDefault()
@@ -111,6 +119,8 @@ class ShowPlan extends React.Component {
 			console.log(err);
 		}
 	}
+
+	// ================= DELETE EXERCISE ================= //
 
 	deleteExercise = async (exerciseId, e) => {
 
