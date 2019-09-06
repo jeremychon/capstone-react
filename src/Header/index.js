@@ -45,9 +45,13 @@ class Header extends React.Component {
 				<Popup 
 					trigger={<div className='menu-item' style={{backgroundColor: 'tan', height: 40, width: 100, display: 'inline-block'}}>Profile</div>}
 					position='bottom center'
-					on='click'
+					on='hover'
+					closeOnDocumentClick
+					cursor='pointer'
 					mouseEnterDelay={0}
 					mouseLeaveDelay={10}
+					arrow={false}
+					contentStyle={{ padding: "0px", border: "none" }}
 				>
 					<div className='menu'>
 						<div className='menu-item' onClick={this.toProfilePlans}>Plans</div>

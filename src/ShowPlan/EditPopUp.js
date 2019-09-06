@@ -53,8 +53,7 @@ class EditPopUp extends React.Component {
 							value={this.state.activity}
 							onChange={this.handleChange}
 						/><br/>
-						<input 
-							type="textarea" 
+						<textarea 
 							name="description" 
 							placeholder={this.props.exercise.description} 
 							value={this.state.description}

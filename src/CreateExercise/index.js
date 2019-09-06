@@ -34,8 +34,7 @@ class CreateExercise extends React.Component {
 						value={this.state.activity}
 						onChange={this.handleChange}
 					/><br />
-					<input 
-						type="textarea" 
+					<textarea  
 						name="description" 
 						placeholder="e.g. Sets, Reps, Duration, etc." 
 						value={this.state.description}
