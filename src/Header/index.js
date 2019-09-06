@@ -44,12 +44,15 @@ class Header extends React.Component {
 				<div onClick={this.toCommunity} style={{backgroundColor: 'teal', height: 40, width: 100, display: 'inline-block'}}>Community</div>
 				<Popup 
 					trigger={<div className='menu-item' style={{backgroundColor: 'tan', height: 40, width: 100, display: 'inline-block'}}>Profile</div>}
-					position='bottom-center'
-					on='hover'
+					position='bottom center'
+					on='click'
 					mouseEnterDelay={0}
-					mouseLeaveDelay={10}>
-					<div className='menu-item' onClick={this.toProfilePlans}>Plans</div>
-					<div className='menu-item' onClick={this.toProfileProgress}>Progress</div>
+					mouseLeaveDelay={10}
+				>
+					<div className='menu'>
+						<div className='menu-item' onClick={this.toProfilePlans}>Plans</div>
+						<div className='menu-item' onClick={this.toProfileProgress}>Progress</div>
+					</div>
 				</Popup>
 			</div>
 		)
