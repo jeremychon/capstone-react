@@ -26,8 +26,13 @@ class App extends React.Component {
 			firstName: fName,
 			lastName: lName,
 			userId: id,
-			loggedIn: true
+			loggedIn: true,
+			profileSwitch: true
 		})
+	}
+
+	showUserPlans = (planShow) => {
+		this.setState({profileSwitch: planShow})
 	}
 
 	render() {
@@ -42,7 +47,7 @@ class App extends React.Component {
 								userLog={this.userLog}/>}
 					/>
 					<Route>
-						{this.state.loggedIn ? <Header userId={this.state.userId}/> : null}
+						{this.state.loggedIn ? <Header userId={this.state.userId} showUserPlans={this.showUserPlans}/> : null}
 						<Route 
 							exact path='/community' 
 							render={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}
@@ -57,7 +62,7 @@ class App extends React.Component {
 						/>
 						<Route 
 							exact path='/user/:id' 
-							render={(props) => this.state.loggedIn ? <Profile {...props} /> : <Redirect to='/' />}
+							render={(props) => this.state.loggedIn ? <Profile {...props} firstName={this.state.firstName} lastName={this.state.lastName} profileSwitch={this.state.profileSwitch}/> : <Redirect to='/' />}
 						/>
 					</Route>
 				</Switch>

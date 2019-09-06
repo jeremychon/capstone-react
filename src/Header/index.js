@@ -1,5 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
+import Popup from 'reactjs-popup'
 
 class Header extends React.Component {
 
@@ -17,8 +18,19 @@ class Header extends React.Component {
 		if ( history ) history.push('/community')
 	}
 
-	toProfile = (e) => {
+	toProfilePlans = (e) => {
 		e.preventDefault()
+
+		this.props.showUserPlans(true)
+
+		const { history } = this.props
+		if ( history ) history.push('/user/' + this.props.userId)
+	}
+
+	toProfileProgress = (e) => {
+		e.preventDefault()
+
+		this.props.showUserPlans(false)
 
 		const { history } = this.props
 		if ( history ) history.push('/user/' + this.props.userId)
@@ -28,9 +40,17 @@ class Header extends React.Component {
 		return (
 			<div>
 				<h1>Weight Mate</h1>
-				<div onClick={this.toCreate} style={{backgroundColor: 'lavender', height: 100, width: 100, display: 'inline-block'}}>Create</div>
-				<div onClick={this.toCommunity} style={{backgroundColor: 'teal', height: 100, width: 100, display: 'inline-block'}}>Community</div>
-				<div onClick={this.toProfile} style={{backgroundColor: 'tan', height: 100, width: 100, display: 'inline-block'}}>Profile</div>
+				<div onClick={this.toCreate} style={{backgroundColor: 'lavender', height: 40, width: 100, display: 'inline-block'}}>Create</div>
+				<div onClick={this.toCommunity} style={{backgroundColor: 'teal', height: 40, width: 100, display: 'inline-block'}}>Community</div>
+				<Popup 
+					trigger={<div className='menu-item' style={{backgroundColor: 'tan', height: 40, width: 100, display: 'inline-block'}}>Profile</div>}
+					position='bottom-center'
+					on='hover'
+					mouseEnterDelay={0}
+					mouseLeaveDelay={10}>
+					<div className='menu-item' onClick={this.toProfilePlans}>Plans</div>
+					<div className='menu-item' onClick={this.toProfileProgress}>Progress</div>
+				</Popup>
 			</div>
 		)
 	}
