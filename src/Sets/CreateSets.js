@@ -6,8 +6,8 @@ class CreateSets extends React.Component {
 
 		this.state = {
 			exerciseId: '',
-			weight: 0,
-			reps: 0,
+			weight: '',
+			reps: '',
 			notes: ''
 		}
 	}

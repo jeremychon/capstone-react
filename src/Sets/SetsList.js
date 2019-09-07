@@ -8,6 +8,7 @@ const SetsList = (props) => {
 			<div key={set._id}>
 				<div>{i + 1}</div>
 				<div>Weight: {set.weight}  ||  Reps: {set.reps} || Notes: {set.notes}</div>
+				<div onClick={props.deleteSet.bind(null, set)}>&times;</div>
 			</div>
 		)
 	})

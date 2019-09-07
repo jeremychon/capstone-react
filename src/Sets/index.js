@@ -67,13 +67,35 @@ class Sets extends React.Component {
 		})
 	}
 
+	deleteSet = async (set, e) => {
+		// e.preventDefault()
+
+		try {
+			const deletedSet = await fetch('http://localhost:9000/set/' + set._id, {
+				method: 'DELETE',
+				credentials: 'include'
+			})
+
+			if (deletedSet.status !== 200) {
+				throw Error('deletedSet is not running')
+			}
+
+			const undeletedSets = this.state.sets.filter(s => s._id !== set._id)
+			console.log(undeletedSets, '<---- undeletedSets');
+
+			this.setState({sets: undeletedSets})
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 
 	render() {
 		console.log(this.state , '<---- state in sets');
 		return (
 			<div>
 				<h3>Sets</h3>
-				<SetsList sets={this.state.sets}/>
+				<SetsList deleteSet={this.deleteSet} sets={this.state.sets}/>
 				{this.state.creating ? 
 					<CreateSets exerciseId={this.props.exerciseId} createSet={this.createSet}/> : null}
 				{this.props.userId === this.props.planUserId ? 

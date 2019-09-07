@@ -30,7 +30,8 @@ class CreateExercise extends React.Component {
 					</select><br />
 					Exercise: <input 
 						list="activity" 
-						name="activity"  
+						name="activity"
+						autoComplete="off" 
 						value={this.state.activity}
 						onChange={this.handleChange}
 					/>

@@ -9,7 +9,8 @@ class EditPopUp extends React.Component {
 			id: '',
 			type: '',
 			activity: '',
-			description: ''
+			description: '',
+			open: false
 		}
 	}
 
@@ -22,6 +23,14 @@ class EditPopUp extends React.Component {
 		})
 	}
 
+	openModal = () => {
+		this.setState({open: true})
+	}
+
+	closeModal = () => {
+		this.setState({open: false})
+	}
+
 	handleChange = (e) => {
 		this.setState({
 			[e.currentTarget.name]: e.currentTarget.value
@@ -32,36 +41,62 @@ class EditPopUp extends React.Component {
 		e.preventDefault()
 
 		this.props.updateExercise(this.state)
+
+		this.setState({open: false})
 	}
 	
 	render() {
 		// console.log(this.state, '<--- state in edit pop up');
 		return (
-			<Popup modal trigger={open => (<button>Edit</button>)}>
-				{close => (
+			<div>
+				<button onClick={this.openModal} >Edit</button>
+				<Popup 
+					open={this.state.open}
+					closeOnDocumentClick
+					onClose={this.closeModal}
+				>
 					<form onSubmit={this.handleSubmit}>
 						<select name="type" onChange={this.handleChange}>
 							<option defaultValue={this.props.exercise.type}>{this.props.exercise.type}</option>
 							<option value={this.props.exercise.type === 'Strength & Conditioning' ? 'Cardio' : 'Strength & Conditioning'}
 							>{this.props.exercise.type === 'Strength & Conditioning' ? 'Cardio' : 'Strength & Conditioning'}</option>
 						</select>
-						<input 
-							type="text" 
-							name="activity" 
-							placeholder={this.props.exercise.activity}
+						Exercise: <input 
+							list="activity" 
+							name="activity"
+							autoComplete="off" 
 							value={this.state.activity}
 							onChange={this.handleChange}
-						/><br/>
-						<textarea 
-							name="description" 
-							placeholder={this.props.exercise.description} 
-							value={this.state.description}
-							onChange={this.handleChange}
-						/><br/>
+						/>
+						{this.state.type === 'Strength & Conditioning' ? 
+							<datalist id="activity">
+								<option value="Squat" />
+								<option value="Deadlift" />
+								<option value="Bench" />
+							</datalist>
+						: null}
+						{this.state.type === 'Cardio' ? 
+							<div>
+								<datalist id="activity">
+									<option value="Run" />
+									<option value="Bike" />
+									<option value="Swim" />
+								</datalist>
+								<div>
+									Notes: 
+									<textarea 
+										name="description" 
+										value={this.state.description}  
+										onChange={this.handleChange}
+									/>
+								</div>
+							</div>
+						: null}<br />
 						<button>Update</button>
+						<div style={{borderRadius: 50, border: '1px solid black', width: 20}} onClick={this.closeModal}>&times;</div>
 					</form>
-				)}
-			</Popup>
+				</Popup>
+			</div>
 		)
 	}
 }
