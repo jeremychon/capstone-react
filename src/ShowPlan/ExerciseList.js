@@ -1,6 +1,7 @@
 import React from 'react'
 import EditPopUp from './EditPopUp'
-import Sets from '../Sets'
+import SetsList from '../Sets/SetsList'
+import CreateSets from '../Sets/CreateSets'
 
 
 class ExerciseList extends React.Component {
@@ -9,15 +10,29 @@ class ExerciseList extends React.Component {
 
 		this.state = {
 			strengthEx: [],
-			cardioEx: []
+			cardioEx: [],
+			creatingSets: false,
+			addedSet: {}
 		}
 	}
 
+	changeSetsModal = () => {
+		this.setState({creatingSets: true})
+	}
+
+	addSet = (set) => {
+		this.setState({
+			addedSet: set,
+			creatingSets: false
+		})
+	}
 
 	render() {
+		console.log(this.state, '<---- state in exercise list');
 		const strExercises = this.props.exercises
 			.filter(exercise => exercise.type === 'Strength & Conditioning')
 			.map((ex) => {
+				ex.sets.push(this.state.addedSet)
 				return (
 					<div key={ex._id}>
 						<br/>
@@ -31,7 +46,9 @@ class ExerciseList extends React.Component {
 								>Delete</button> 
 							</div>
 							: null}
-						<Sets userId={this.props.userId} planUserId={this.props.planUserId} exerciseId={ex._id} />
+						<SetsList sets={ex.sets} />
+						{this.state.creatingSets ? <CreateSets addSet={this.addSet}/> : null}
+						<button onClick={this.changeSetsModal}>Add Set</button>
 					</div>
 				)
 			})

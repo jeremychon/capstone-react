@@ -1,6 +1,7 @@
 import React from 'react'
 
 const ProfileProgress = (props) => {
+	// get all pictures associated with user
 	
 	return (
 		<div>

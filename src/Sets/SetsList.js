@@ -5,10 +5,9 @@ const SetsList = (props) => {
 
 	const allSets = props.sets.map((set, i) => {
 		return (
-			<div key={set._id}>
+			<div key={i + 1}>
 				<div>{i + 1}</div>
 				<div>Weight: {set.weight}  ||  Reps: {set.reps} || Notes: {set.notes}</div>
-				<div onClick={props.deleteSet.bind(null, set)}>&times;</div>
 			</div>
 		)
 	})

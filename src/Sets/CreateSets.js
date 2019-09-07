@@ -5,16 +5,15 @@ class CreateSets extends React.Component {
 		super()
 
 		this.state = {
-			exerciseId: '',
 			weight: '',
 			reps: '',
 			notes: ''
 		}
 	}
 
-	componentDidMount() {
-		this.setState({exerciseId: this.props.exerciseId})
-	}
+	// componentDidMount() {
+	// 	this.setState({exerciseId: this.props.exerciseId})
+	// }
 
 	handleChange = (e) => {
 		this.setState({
@@ -25,7 +24,7 @@ class CreateSets extends React.Component {
 	handleSubmit = (e) => {
 		e.preventDefault()
 
-		this.props.createSet(this.state)
+		this.props.addSet(this.state)
 	}
 
 	render() {
@@ -59,3 +58,5 @@ class CreateSets extends React.Component {
 
 
 export default CreateSets
+
+

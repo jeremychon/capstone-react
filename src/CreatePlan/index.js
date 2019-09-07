@@ -8,6 +8,7 @@ class CreatePlan extends React.Component {
 			goalType: '',
 			current: 0,
 			goal: 0,
+			purpose: '',
 			public: false
 		}
 	}
@@ -65,18 +66,32 @@ class CreatePlan extends React.Component {
 						<option value="Weight loss">Weight loss</option>
 						<option value="Strength">Strength</option>
 					</select><br />
-					Current: <input 
-						type="number" 
-						name="current" 
-						value={this.state.current}
-						onChange={this.handleChange}
-					/> lbs <br />
-					Goal: <input 
-						type="number" 
-						name="goal"  
-						value={this.state.goal}
-						onChange={this.handleChange}
-					/> lbs <br />
+					{this.state.goalType === 'Weight loss' ? 
+						<div>
+							Current: <input 
+								type="number" 
+								name="current" 
+								value={this.state.current}
+								onChange={this.handleChange}
+							/> lbs <br />
+							Goal: <input 
+								type="number" 
+								name="goal"  
+								value={this.state.goal}
+								onChange={this.handleChange}
+							/> lbs <br />
+						</div>
+					: null}
+					{this.state.goalType === 'Strength' ? 
+						<div>
+							Purpose: 
+							<textarea 
+								name="purpose" 
+								value={this.state.purpose} 
+								onChange={this.handleChange}
+							/>
+						</div> 
+					: null}
 					Share?
 					<input 
 						type="checkbox" 
