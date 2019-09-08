@@ -13,6 +13,7 @@ class ShowPlan extends React.Component {
 			plan: {},
 			// USED FOR EDITING PLAN
 			goalType: '',
+			purpose: '',
 			current: '',
 			goal:'',
 			public: false,
@@ -49,7 +50,8 @@ class ShowPlan extends React.Component {
 			plan: foundPlanResponse.data,
 			goalType: foundPlanResponse.data.goalType,
 			current: foundPlanResponse.data.current,
-			goal: foundPlanResponse.data.goal
+			goal: foundPlanResponse.data.goal,
+			purpose: foundPlanResponse.data.purpose
 		})
 	}
 
@@ -248,14 +250,17 @@ class ShowPlan extends React.Component {
 	// ============================================= //
 
 	render() {
-		// console.log(this.state, '<---- this.state in ShowPlan');
+		console.log(this.state, '<---- this.state in ShowPlan');
 		return (
 			<div>
 				<h1>Show Plan</h1>
 					{this.state.editing ? null : 
 						<div style={{border: '1px solid black'}}>
 							<div>Goal: {this.state.plan.goalType}</div>
-							<div>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</div>
+							{this.state.plan.goalType === 'Strength' ? <div>Purpose: {this.state.plan.purpose}</div> : null}
+							{this.state.plan.goalType === 'Weight loss' ? 
+								<div>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</div>
+							: null}
 							{this.state.plan.user === this.props.userId ? <button onClick={this.editingToggle}>Edit</button> : null}
 							{this.state.plan.user === this.props.userId ? <button onClick={this.deletePlan}>Delete</button> : null}
 						</div>
@@ -267,20 +272,32 @@ class ShowPlan extends React.Component {
 								<option defaultValue={this.state.plan.goalType}>{this.state.plan.goalType}</option>
 								<option value={this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}>{this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}</option>
 							</select>
-							<input 
-								type="number" 
-								name="current" 
-								value={this.state.current} 
-								placeholder={this.state.plan.current} 
-								onChange={this.handleChange}
-							/>
-							<input 
-								type="number" 
-								name="goal" 
-								value={this.state.goal} 
-								placeholder={this.state.plan.goal} 
-								onChange={this.handleChange}
-							/>
+							{this.state.goalType === 'Weight loss' ? 
+								<div>
+									Current: <input 
+										type="number" 
+										name="current" 
+										value={this.state.current}
+										onChange={this.handleChange}
+									/> lbs <br />
+									Goal: <input 
+										type="number" 
+										name="goal"  
+										value={this.state.goal}
+										onChange={this.handleChange}
+									/> lbs <br />
+								</div>
+							: null}
+							{this.state.goalType === 'Strength' ? 
+								<div>
+									Purpose: 
+									<textarea 
+										name="purpose" 
+										value={this.state.purpose} 
+										onChange={this.handleChange}
+									/>
+								</div> 
+							: null}
 							Share?
 							<input 
 								type="checkbox"

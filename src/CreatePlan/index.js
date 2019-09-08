@@ -27,9 +27,6 @@ class CreatePlan extends React.Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault()
-		
-		const { squat, deadlift, bench } = this.state
-		this.props.updateLifts(squat, deadlift, bench)
 
 		try {
 			const createdPlan = await fetch('http://localhost:9000/plan/', {

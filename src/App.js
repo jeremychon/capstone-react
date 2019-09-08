@@ -16,10 +16,7 @@ class App extends React.Component {
 			firstName: '',
 			lastName: '',
 			userId: '',
-			loggedIn: false,
-			squat: 0,
-			deadlift: 0,
-			bench: 0
+			loggedIn: false
 		}
 	}
 
@@ -30,20 +27,12 @@ class App extends React.Component {
 			lastName: lName,
 			userId: id,
 			loggedIn: true,
-			profileSwitch: true,
+			profileSwitch: true
 		})
 	}
 
 	showUserPlans = (planShow) => {
 		this.setState({profileSwitch: planShow})
-	}
-
-	updateLifts = (s, d, b) => {
-		this.setState({
-			squat: s,
-			deadlift: d,
-			bench: b
-		})
 	}
 
 	render() {

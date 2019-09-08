@@ -32,7 +32,11 @@ class ExerciseList extends React.Component {
 		const strExercises = this.props.exercises
 			.filter(exercise => exercise.type === 'Strength & Conditioning')
 			.map((ex) => {
-				ex.sets.push(this.state.addedSet)
+
+				if (this.state.addedSet.reps) {
+					ex.sets.push(this.state.addedSet)
+				}
+
 				return (
 					<div key={ex._id}>
 						<br/>

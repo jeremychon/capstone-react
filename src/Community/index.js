@@ -71,7 +71,7 @@ class Community extends React.Component {
 	}
 
 	render() {
-		// console.log(this.state, '<--- state in Community');
+		console.log(this.state, '<--- state in Community');
 		return (
 			<div>
 				<h2>Community Page</h2>
