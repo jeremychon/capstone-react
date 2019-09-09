@@ -15,7 +15,7 @@ const CommunityList = (props) => {
 					<Card.Header>{plan.user.firstName} {plan.user.lastName}</Card.Header>
 					{plan.goalType === 'Weight loss' ? 
 						<Card.Description>
-							{plan.current} <Icon angle double right/> {plan.goal}
+							{plan.current} <Icon name='angle double right'/> {plan.goal}
 						</Card.Description>
 					: <Card.Description>Purpose: {plan.purpose}</Card.Description>}
 				</Card.Content>
@@ -35,7 +35,7 @@ const CommunityList = (props) => {
 					<Card.Header>{plan.user.firstName} {plan.user.lastName}</Card.Header>
 					{plan.goalType === 'Weight loss' ? 
 						<Card.Description>
-							{plan.current} <Icon angle double right/> {plan.goal}
+							{plan.current} <Icon name='angle double right'/> {plan.goal}
 						</Card.Description>
 					: <Card.Description>Purpose: {plan.purpose}</Card.Description>}
 				</Card.Content>

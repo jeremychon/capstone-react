@@ -1,7 +1,8 @@
 import React from 'react'
 import CreateExercise from '../CreateExercise'
 import ExerciseList from './ExerciseList'
-import { Card, Button, Progress } from 'semantic-ui-react'
+import EditProgressWeight from './EditProgressWeight'
+import { Card, Button, Progress, Form } from 'semantic-ui-react'
 
 class ShowPlan extends React.Component {
 	constructor() {
@@ -23,14 +24,33 @@ class ShowPlan extends React.Component {
 			activity: '',
 			description: '',
 			// USED FOR PROGRESS
-			progressWeight: 187,
-			progressPercent: ''
+			progressWeight: 0,
+			progressPercent: '',
+			progressModal: false
 		}
 	}
 
 	componentDidMount() {
 		this.getPlan()
 		this.getExercises()
+	}
+
+	showProgressModal = (e) => {
+		e.preventDefault()
+
+		this.setState({progressModal: true})
+	}
+
+	handleProgressWeight = (weight) => {
+		const diffToGoal = this.state.plan.current - this.state.plan.goal
+		const progressMade = this.state.plan.current - weight
+		const progressPercent = (progressMade / diffToGoal)
+
+		this.setState({
+			progressModal: false,
+			progressWeight: weight,
+			progressPercent: progressPercent
+		})
 	}
 
 
@@ -51,21 +71,12 @@ class ShowPlan extends React.Component {
 
 		const foundPlanResponse = await foundPlan.json()
 
-		// GET PROGRESS
-		const diffToGoal = foundPlanResponse.data.current - foundPlanResponse.data.goal
-		
-		const progressMade = foundPlanResponse.data.current - this.state.progressWeight
-
-		const progressPercent = (progressMade / diffToGoal)
-		console.log(progressPercent, '<---- progressPercent');
-
 		this.setState({
 			plan: foundPlanResponse.data,
 			goalType: foundPlanResponse.data.goalType,
 			current: foundPlanResponse.data.current,
 			goal: foundPlanResponse.data.goal,
-			purpose: foundPlanResponse.data.purpose,
-			progressPercent: progressPercent
+			purpose: foundPlanResponse.data.purpose
 		})
 	}
 
@@ -276,7 +287,14 @@ class ShowPlan extends React.Component {
 								<Card.Description>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</Card.Description>
 							: null}
 						</Card.Content>
-						<Progress value={this.state.progressPercent} total='1' progress='percent' style={{position: 'relative', width: '80%'}}/>
+						{this.state.plan.goalType === 'Weight loss' ?
+							<Progress value={this.state.progressPercent} total='1' progress='percent'/>
+						: null}
+						
+						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
+						{this.state.progressModal ? 
+							<EditProgressWeight handleProgressWeight={this.handleProgressWeight}/>
+						: null}
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.editingToggle}>Edit</Button> : null}
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.deletePlan}>Delete</Button> : null}
 					</Card>
