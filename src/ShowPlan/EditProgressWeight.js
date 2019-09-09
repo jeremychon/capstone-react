@@ -30,16 +30,19 @@ class EditProgressWeight extends React.Component {
 
 	render() {
 		return (
-			<Form onSubmit={this.handleSubmit}>
-				<Form.Input
-					type="number" 
-					name='editedWeight'
-					placeholder='New weight'
-					value={this.state.editedWeight}
-					onChange={this.handleChange}
-				/>
-				<Button>Done</Button>
-			</Form>
+			<div>
+				<Form onSubmit={this.handleSubmit}>
+					<Form.Input
+						type="number" 
+						name='editedWeight'
+						placeholder='New weight'
+						value={this.state.editedWeight}
+						onChange={this.handleChange}
+					/>
+					<Button>Done</Button>
+				</Form>
+				<Button onClick={this.props.hideProgressModal}>Cancel</Button>
+			</div>
 		)
 	}
 }

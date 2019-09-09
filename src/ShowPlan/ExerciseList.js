@@ -2,7 +2,7 @@ import React from 'react'
 import EditPopUp from './EditPopUp'
 import SetsList from '../Sets/SetsList'
 import CreateSets from '../Sets/CreateSets'
-import { Button, Grid, Icon } from 'semantic-ui-react'
+import { Grid, Icon } from 'semantic-ui-react'
 
 
 class ExerciseList extends React.Component {

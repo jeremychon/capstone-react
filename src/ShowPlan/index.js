@@ -2,7 +2,7 @@ import React from 'react'
 import CreateExercise from '../CreateExercise'
 import ExerciseList from './ExerciseList'
 import EditProgressWeight from './EditProgressWeight'
-import { Card, Button, Progress, Form } from 'semantic-ui-react'
+import { Card, Button, Progress } from 'semantic-ui-react'
 
 class ShowPlan extends React.Component {
 	constructor() {
@@ -39,6 +39,12 @@ class ShowPlan extends React.Component {
 		e.preventDefault()
 
 		this.setState({progressModal: true})
+	}
+
+	hideProgressModal = (e) => {
+		e.preventDefault()
+
+		this.setState({progressModal: false})
 	}
 
 	handleProgressWeight = async (weight) => {
@@ -320,7 +326,11 @@ class ShowPlan extends React.Component {
 						
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
 						{this.state.progressModal ? 
-							<EditProgressWeight progressWeight={this.state.progressWeight} handleProgressWeight={this.handleProgressWeight}/>
+							<EditProgressWeight 
+								progressWeight={this.state.progressWeight} 
+								handleProgressWeight={this.handleProgressWeight}
+								hideProgressModal={this.hideProgressModal}
+							/>
 						: null}
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.editingToggle}>Edit</Button> : null}
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.deletePlan}>Delete</Button> : null}

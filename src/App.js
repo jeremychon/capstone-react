@@ -16,19 +16,36 @@ class App extends React.Component {
 			firstName: '',
 			lastName: '',
 			userId: '',
+			image: '',
 			loggedIn: false
 		}
 	}
 
-	userLog = (fName, lName, id) => {
-		console.log(fName, lName, '<---- first and last');
+	register = async (data) => {
+
+		const register = await fetch('http://localhost:9000/user/register', {
+			method: 'POST',
+			credentials: 'include',
+			body: data,
+			headers: {
+				'enctype': 'multipart/form-data'
+			}
+		});
+
+		const parsedRegister = await register.json();
+		console.log(parsedRegister, '<---- parsedRegister');
+
 		this.setState({
-			firstName: fName,
-			lastName: lName,
-			userId: id,
-			loggedIn: true,
-			profileSwitch: true
+			...parsedRegister.data,
+			userId: parsedRegister.data._id,
+			loggedIn: true
 		})
+
+		if (parsedRegister.code === 200) {
+			this.props.history.push('/community')
+		} else {
+			this.setState({userExists: true})
+		}
 	}
 
 	logout = async (e) => {
@@ -63,7 +80,8 @@ class App extends React.Component {
 						exact path='/' 
 						render={(props) => 
 							<SignIn {...props} 
-								userLog={this.userLog}/>}
+								register={this.register}/>
+						}
 					/>
 					<Route>
 						{this.state.loggedIn ? <Header logout={this.logout} userId={this.state.userId} showUserPlans={this.showUserPlans}/> : null}
