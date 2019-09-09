@@ -1,11 +1,20 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import Popup from 'reactjs-popup'
+import { Dropdown, Menu } from 'semantic-ui-react'
 
 class Header extends React.Component {
+	constructor() {
+		super()
+
+		this.state = {
+			activeNavItem: 'Community'
+		}
+	}
 
 	toCreate = (e) => {
 		e.preventDefault()
+
+		this.setState({activeNavItem: 'Create'})
 		
 		const { history } = this.props
 		if ( history ) history.push('/plan-new')
@@ -14,12 +23,16 @@ class Header extends React.Component {
 	toCommunity = (e) => {
 		e.preventDefault()
 
+		this.setState({activeNavItem: 'Community'})
+
 		const { history } = this.props
 		if ( history ) history.push('/community')
 	}
 
 	toProfilePlans = (e) => {
 		e.preventDefault()
+
+		this.setState({activeNavItem: 'Profile'})
 
 		this.props.showUserPlans(true)
 
@@ -30,6 +43,8 @@ class Header extends React.Component {
 	toProfileProgress = (e) => {
 		e.preventDefault()
 
+		this.setState({activeNavItem: 'Profile'})
+
 		this.props.showUserPlans(false)
 
 		const { history } = this.props
@@ -37,26 +52,49 @@ class Header extends React.Component {
 	}
 
 	render() {
+
+		const { activeNavItem } = this.state
+
 		return (
-			<div>
-				<h1>Weight Mate</h1>
-				<div onClick={this.toCreate} style={{backgroundColor: 'lavender', height: 40, width: 100, display: 'inline-block'}}>Create</div>
-				<div onClick={this.toCommunity} style={{backgroundColor: 'teal', height: 40, width: 100, display: 'inline-block'}}>Community</div>
-				<Popup 
-					trigger={<div className='menu-item' style={{backgroundColor: 'tan', height: 40, width: 100, display: 'inline-block'}}>Profile</div>}
-					position='bottom center'
-					on='hover'
-					closeOnDocumentClick
-					mouseEnterDelay={0}
-					mouseLeaveDelay={10}
-					arrow={false}
-					contentStyle={{ padding: "0px", border: "none" }}
-				>
-					<div className='menu'>
-						<div className='menu-item' onClick={this.toProfilePlans}>Plans</div>
-						<div className='menu-item' onClick={this.toProfileProgress}>Progress</div>
-					</div>
-				</Popup>
+			<div className='headerBackground'>
+				<div className='headerTitle'>
+					<div className='headerWeightTitle'>weight</div>
+					<div className='headerMateTitle'>MATE</div>
+				</div>
+				<Menu className='nav-bar' secondary inverted >
+					<Menu.Item
+						className='nav-bar-item'
+						name='Create'
+						active={activeNavItem === 'Create'}
+						onClick={this.toCreate}
+					/>
+					<Menu.Item
+						className='nav-bar-item'
+						name='Community'
+						active={activeNavItem === 'Community'}
+						onClick={this.toCommunity}
+					/>
+					<Dropdown 
+						className='nav-bar-item' 
+						item
+						text='Profile'
+					>
+						<Dropdown.Menu>
+							<Dropdown.Item 
+								text='Plans'
+								onClick={this.toProfilePlans}
+							/>
+							<Dropdown.Item 
+								text='Progress'
+								onClick={this.toProfileProgress} 
+							/>
+							<Dropdown.Item 
+								text='Logout'
+								onClick={this.props.logout} 
+							/>
+						</Dropdown.Menu>
+					</Dropdown>
+				</Menu>
 			</div>
 		)
 	}

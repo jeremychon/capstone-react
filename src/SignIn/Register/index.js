@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button, Form } from 'semantic-ui-react'
 
 class Register extends React.Component {
 	constructor() {
@@ -45,40 +46,40 @@ class Register extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h2>Register</h2>
+			<div className='signInForm'>
+				<h2 className='signInTitles'>REGISTER</h2>
 				{this.state.userExists ? <div>A user with that email already exists</div> : null}
-				<form onSubmit={this.handleSubmit}>
-					<input 
+				<Form className='reglogForm' onSubmit={this.handleSubmit}>
+					<Form.Input 
 						type='text' 
 						name='firstName' 
 						placeholder='First name' 
 						value={this.state.firstName}
 						onChange={this.handleChange}
-					/><br />
-					<input 
+					/>
+					<Form.Input 
 						type='text' 
 						name='lastName' 
 						placeholder='Last name' 
 						value={this.state.lastName}
 						onChange={this.handleChange} 
-					/><br />
-					<input 
+					/>
+					<Form.Input 
 						type='text' 
 						name='email' 
 						placeholder='e.g. example@email.com' 
 						value={this.state.email}
 						onChange={this.handleChange} 
-					/><br />
-					<input 
+					/>
+					<Form.Input 
 						type='password' 
 						name='password' 
 						placeholder='Enter a password' 
 						value={this.state.password}
 						onChange={this.handleChange} 
-					/><br />
-					<button>Register</button>
-				</form>
+					/>
+					<Button>Register</Button>
+				</Form>
 			</div>
 		)
 	}

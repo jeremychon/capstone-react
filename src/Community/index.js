@@ -1,5 +1,6 @@
 import React from 'react'
 import CommunityList from './CommunityList'
+import { Menu } from 'semantic-ui-react'
 
 class Community extends React.Component {
 	constructor() {
@@ -8,7 +9,8 @@ class Community extends React.Component {
 		this.state = {
 			plans: [],
 			filterPlans: [],
-			filter: false
+			filter: false,
+			activeItem: 'All'
 		}
 	}
 
@@ -43,7 +45,8 @@ class Community extends React.Component {
 
 		this.setState({
 			filterPlans: onlyStr,
-			filter: true
+			filter: true,
+			activeItem: 'Strength'
 		})
 	}
 
@@ -54,14 +57,18 @@ class Community extends React.Component {
 
 		this.setState({
 			filterPlans: onlyWL,
-			filter: true
+			filter: true,
+			activeItem: 'Weight loss'
 		})
 	}
 
 	allPlans = (e) => {
 		e.preventDefault()
 
-		this.setState({filter: false})
+		this.setState({
+			filter: false,
+			activeItem: 'All'
+		})
 	}
 
 	showPlan = (id, e) => {
@@ -71,13 +78,30 @@ class Community extends React.Component {
 	}
 
 	render() {
-		console.log(this.state, '<--- state in Community');
+		const { activeItem } = this.state
+		// console.log(this.state, '<--- state in Community');
 		return (
 			<div>
-				<h2>Community Page</h2>
-				<div onClick={this.onlyStrength} style={{height: 100, width: 200, border: '1px solid black', display: 'inline-block'}}>Strength</div>
-				<div onClick={this.onlyWeightLoss} style={{height: 100, width: 200, border: '1px solid black', display: 'inline-block'}}>Weight loss</div>
-				<div onClick={this.allPlans} style={{height: 100, width: 200, border: '1px solid black', display: 'inline-block'}}>All</div>
+				<Menu text className='communityFilter'>
+					<Menu.Item 
+						name='Strength'
+						active={activeItem === 'Strength'}
+						onClick={this.onlyStrength}
+						style={{fontSize: 15}}
+					/>
+					<Menu.Item
+						name='Weight loss'
+						active={activeItem === 'Weight loss'}
+						onClick={this.onlyWeightLoss}
+						style={{fontSize: 15}}
+					/>
+					<Menu.Item
+						name='All'
+						active={activeItem === 'All'}
+						onClick={this.allPlans}
+						style={{fontSize: 15}}
+					/>
+				</Menu>
 				<CommunityList 
 					filter={this.state.filter} 
 					filterPlans={this.state.filterPlans}

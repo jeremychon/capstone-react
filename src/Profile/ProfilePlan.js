@@ -9,8 +9,12 @@ const ProfilePlan = (props) => {
 				onClick={props.showPlan.bind(null, plan._id)}
 			>
 				<div>{plan.goalType}</div>
-				<div>{plan.current}</div>
-				<div>{plan.goal}</div>
+				{plan.goalType === 'Weight loss' ? 
+					<div>
+						<div>Current: {plan.current}</div>
+						<div>Goal: {plan.goal}</div>
+					</div>
+				: <div>Purpose: {plan.purpose}</div>}
 				<br />
 			</div>
 		)

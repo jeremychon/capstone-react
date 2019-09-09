@@ -139,11 +139,12 @@ class ShowPlan extends React.Component {
 			}
 
 			const deletedExerciseResponse = await deletedExercise.json()
+			console.log(deletedExerciseResponse, '<---- deletedExerciseResponse');
 
-			const undeletedMovies = this.state.exercises.filter(exercise => exercise._id !== deletedExerciseResponse.data._id)
+			const undeletedExercises = this.state.exercises.filter(exercise => exercise._id !== deletedExerciseResponse.data._id)
 
 			this.setState({
-				exercises: undeletedMovies
+				exercises: undeletedExercises
 			})
 
 		} catch (err) {

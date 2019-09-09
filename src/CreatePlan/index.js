@@ -1,4 +1,5 @@
 import React from 'react'
+import { Form, Button } from 'semantic-ui-react'
 
 class CreatePlan extends React.Component {
 	constructor() {
@@ -53,51 +54,61 @@ class CreatePlan extends React.Component {
 
 
 	render() {
-		console.log(this.state, '<----- state in CreatePlan');
+		// console.log(this.state, '<----- state in CreatePlan');
+		const goalTypes = [
+			{key: 'Weight loss', text: 'Weight loss', value: 'Weight loss' },
+			{key: 'Strength', text: 'Strength', value: 'Strength' }
+		]
+
 		return (
 			<div>
-				<h1>Create Plan</h1>
-				<form onSubmit={this.handleSubmit}>
-					<select name="goalType" onChange={this.handleChange}>
-						<option value="DEFAULT" hidden>Select an Option </option>
-						<option value="Weight loss">Weight loss</option>
-						<option value="Strength">Strength</option>
-					</select><br />
+				<h1>Create A Plan</h1>
+				<Form onSubmit={this.handleSubmit}>
+					<Form.Select 
+						name="goalType"
+						fluid
+						placeholder='Select an option'
+						options={goalTypes}
+						onChange={this.handleChange} 
+					/>
 					{this.state.goalType === 'Weight loss' ? 
-						<div>
-							Current: <input 
+						<Form.Group>
+							<label>Current: </label>
+							<Form.Input
 								type="number" 
 								name="current" 
 								value={this.state.current}
 								onChange={this.handleChange}
-							/> lbs <br />
-							Goal: <input 
+							/> lbs
+							<label>Goal: </label>
+							<Form.Input
 								type="number" 
 								name="goal"  
 								value={this.state.goal}
 								onChange={this.handleChange}
-							/> lbs <br />
-						</div>
+							/> lbs
+						</Form.Group>
 					: null}
 					{this.state.goalType === 'Strength' ? 
-						<div>
-							Purpose: 
-							<textarea 
+						<Form.Group>
+							<label>Purpose: </label>
+							<Form.TextArea
+								label='Purpose'
 								name="purpose" 
 								value={this.state.purpose} 
 								onChange={this.handleChange}
 							/>
-						</div> 
+						</Form.Group>
 					: null}
-					Share?
-					<input 
-						type="checkbox" 
+					<Form.Checkbox
+						label='Share?'
+						// type="checkbox" 
 						name="public" 
 						checked={this.state.public}
 						onChange={this.handleInputChange}
-					/><br />
-					<button>Create</button>
-				</form>
+					/>
+					<Button>Create</Button>
+				</Form>
 			</div>
 		)
 	}

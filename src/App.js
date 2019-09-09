@@ -1,11 +1,11 @@
-import React from 'react';
+import React 	  from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
-import SignIn from './SignIn'
-import Community from './Community'
+import SignIn 	  from './SignIn'
+import Community  from './Community'
 import CreatePlan from './CreatePlan'
-import ShowPlan from './ShowPlan'
-import Profile from './Profile'
-import Header from './Header'
+import ShowPlan   from './ShowPlan'
+import Profile 	  from './Profile'
+import Header 	  from './Header'
 import './App.css';
 
 class App extends React.Component {
@@ -16,7 +16,7 @@ class App extends React.Component {
 			firstName: '',
 			lastName: '',
 			userId: '',
-			loggedIn: false
+			loggedIn: true
 		}
 	}
 
@@ -29,6 +29,25 @@ class App extends React.Component {
 			loggedIn: true,
 			profileSwitch: true
 		})
+	}
+
+	logout = async (e) => {
+		e.preventDefault()
+
+		try {
+			const loggedOutUser = await fetch('http://localhost:9000/user/logout', {
+				method: 'POST',
+				credentials: 'include'
+			})
+
+			if (loggedOutUser.status !== 200) {
+				throw Error('loggedOutUser is not running')
+			}
+
+			this.setState({loggedIn: false})
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 	showUserPlans = (planShow) => {
@@ -47,7 +66,7 @@ class App extends React.Component {
 								userLog={this.userLog}/>}
 					/>
 					<Route>
-						{this.state.loggedIn ? <Header userId={this.state.userId} showUserPlans={this.showUserPlans}/> : null}
+						{this.state.loggedIn ? <Header logout={this.logout} userId={this.state.userId} showUserPlans={this.showUserPlans}/> : null}
 						<Route 
 							exact path='/community' 
 							render={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}
@@ -61,9 +80,6 @@ class App extends React.Component {
 							render={(props) => this.state.loggedIn ? 
 								<ShowPlan {...props} 
 									userId={this.state.userId}
-									squat={this.state.squat}
-									deadlift={this.state.deadlift}
-									bench={this.state.bench}
 								/> : <Redirect to='/' />}
 						/>
 						<Route 

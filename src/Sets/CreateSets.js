@@ -5,15 +5,16 @@ class CreateSets extends React.Component {
 		super()
 
 		this.state = {
+			exerciseId: '',
 			weight: '',
 			reps: '',
 			notes: ''
 		}
 	}
 
-	// componentDidMount() {
-	// 	this.setState({exerciseId: this.props.exerciseId})
-	// }
+	componentDidMount() {
+		this.setState({exerciseId: this.props.exerciseId})
+	}
 
 	handleChange = (e) => {
 		this.setState({
