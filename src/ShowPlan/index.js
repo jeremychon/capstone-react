@@ -41,16 +41,43 @@ class ShowPlan extends React.Component {
 		this.setState({progressModal: true})
 	}
 
-	handleProgressWeight = (weight) => {
+	handleProgressWeight = async (weight) => {
 		const diffToGoal = this.state.plan.current - this.state.plan.goal
 		const progressMade = this.state.plan.current - weight
 		const progressPercent = (progressMade / diffToGoal)
 
-		this.setState({
-			progressModal: false,
-			progressWeight: weight,
-			progressPercent: progressPercent
-		})
+		try {
+			const updatedPlan = await fetch('http://localhost:9000/plan/' + this.state.plan._id, {
+				method: 'PUT',
+				credentials: 'include',
+				body: JSON.stringify({
+					goalType: this.state.goalType,
+					current: this.state.current,
+					goal: this.state.goal,
+					progressWeight: weight,
+					progressPercent: progressPercent
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (updatedPlan.status !== 200) {
+				throw Error('updatedPlan is not running')
+			}
+
+			const updatedPlanRes = await updatedPlan.json()
+			console.log(updatedPlanRes, '<---- updatedPlanRes');
+
+			this.setState({
+				plan: updatedPlanRes.data,
+				progressModal: false,
+				progressWeight: weight,
+				progressPercent: progressPercent
+			})
+		} catch (err) {
+			console.log(err);
+		}
 	}
 
 
@@ -288,7 +315,7 @@ class ShowPlan extends React.Component {
 							: null}
 						</Card.Content>
 						{this.state.plan.goalType === 'Weight loss' ?
-							<Progress value={this.state.progressPercent} total='1' progress='percent'/>
+							<Progress value={this.state.plan.progressPercent} total='1' progress='percent'/>
 						: null}
 						
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
