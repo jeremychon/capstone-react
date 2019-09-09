@@ -2,6 +2,7 @@ import React from 'react'
 import EditPopUp from './EditPopUp'
 import SetsList from '../Sets/SetsList'
 import CreateSets from '../Sets/CreateSets'
+import { Button, Grid, Icon } from 'semantic-ui-react'
 
 
 class ExerciseList extends React.Component {
@@ -131,7 +132,7 @@ class ExerciseList extends React.Component {
 			.map((ex) => {
 
 				return (
-					<div key={ex._id}>
+					<Grid.Column key={ex._id}>
 						<br/>
 						<div>Activity: {ex.activity}</div>
 						{this.props.userId === this.props.planUserId ? 
@@ -152,8 +153,8 @@ class ExerciseList extends React.Component {
 							editNotes={this.state.editNotes}
 						/>
 						{this.state.creatingSets ? <CreateSets exerciseId={ex._id} addSet={this.addSet}/> : null}
-						<button onClick={this.changeSetsModal}>Add Set</button>
-					</div>
+						<Icon name='add circle' onClick={this.changeSetsModal} />
+					</Grid.Column>
 				)
 			})
 
@@ -179,11 +180,11 @@ class ExerciseList extends React.Component {
 
 		return (
 			<div>
-				<h1>Exercises</h1>
-				<h2>S & C</h2>
-				<div>{strExercises}</div>
-				<h2>Cardio</h2>
-				<div>{cardioExercises}</div>
+				<h1 className='show-plan-titles'>Exercises</h1>
+				<h2 className='show-plan-titles'>S & C</h2>
+				<Grid stackable columns={2}>{strExercises}</Grid>
+				<h2 className='show-plan-titles'>Cardio</h2>
+				<Grid stackable columns={2}>{cardioExercises}</Grid>
 			</div>
 		)
 	}

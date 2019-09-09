@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Message } from 'semantic-ui-react'
 
 class Login extends React.Component {
 	constructor() {
@@ -47,8 +47,7 @@ class Login extends React.Component {
 		return(
 			<div className='signInForm'>
 				<h2 className='signInTitles'>LOGIN</h2>
-				{this.state.correctLog ? null : <div>Incorrect username and/or password</div>}
-				<Form className='reglogForm' onSubmit={this.handleSubmit}>
+				<Form error className='reglogForm' onSubmit={this.handleSubmit}>
 					<Form.Input 
 						type="text" 
 						name="email" 
@@ -63,6 +62,14 @@ class Login extends React.Component {
 						value={this.state.password}
 						onChange={this.handleChange}
 					/>
+					{this.state.correctLog ? null : 
+						<Message
+							className='loginError'
+							error
+							header='Incorrect email or password'
+							content={`Register for a new account if you don't already have one.`}
+						/>
+					}
 					<Button>Login</Button>
 				</Form>
 			</div>

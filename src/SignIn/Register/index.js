@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Message } from 'semantic-ui-react'
 
 class Register extends React.Component {
 	constructor() {
@@ -48,8 +48,7 @@ class Register extends React.Component {
 		return (
 			<div className='signInForm'>
 				<h2 className='signInTitles'>REGISTER</h2>
-				{this.state.userExists ? <div>A user with that email already exists</div> : null}
-				<Form className='reglogForm' onSubmit={this.handleSubmit}>
+				<Form error className='reglogForm' onSubmit={this.handleSubmit}>
 					<Form.Input 
 						type='text' 
 						name='firstName' 
@@ -78,6 +77,14 @@ class Register extends React.Component {
 						value={this.state.password}
 						onChange={this.handleChange} 
 					/>
+					{this.state.userExists ? 
+						<Message
+						className='registerError'
+							error
+							header='User Already Exists'
+							content='A user with that email is already registered.'
+						/> 
+					: null}
 					<Button>Register</Button>
 				</Form>
 			</div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Icon } from 'semantic-ui-react'
 
 class CreatePlan extends React.Component {
 	constructor() {
@@ -14,15 +14,15 @@ class CreatePlan extends React.Component {
 		}
 	}
 
-	handleChange = (e) => {
+	handleChange = (e, { name, value }) => {
 		this.setState({
-			[e.currentTarget.name]: e.currentTarget.value
+			[name]: value
 		})
 	}
 
-	handleInputChange = (e) => {
+	handleInputChange = (e, { checked }) => {
 		this.setState({
-			public: e.currentTarget.checked ? true : false
+			public: checked ? true : false
 		})
 	}
 
@@ -54,60 +54,65 @@ class CreatePlan extends React.Component {
 
 
 	render() {
-		// console.log(this.state, '<----- state in CreatePlan');
-		const goalTypes = [
-			{key: 'Weight loss', text: 'Weight loss', value: 'Weight loss' },
-			{key: 'Strength', text: 'Strength', value: 'Strength' }
+		console.log(this.state, '<----- state in CreatePlan');
+		const options = [
+			{key: 'wl', text: 'Weight loss', value: 'Weight loss' },
+			{key: 'str', text: 'Strength', value: 'Strength' }
 		]
 
 		return (
 			<div>
-				<h1>Create A Plan</h1>
-				<Form onSubmit={this.handleSubmit}>
-					<Form.Select 
+				<Form className='create-plan' onSubmit={this.handleSubmit}>
+					<Form.Select
+						className='create-plan-select'
 						name="goalType"
-						fluid
-						placeholder='Select an option'
-						options={goalTypes}
+						placeholder='Select a goal'
+						options={options}
 						onChange={this.handleChange} 
 					/>
 					{this.state.goalType === 'Weight loss' ? 
-						<Form.Group>
-							<label>Current: </label>
+						<Form.Group className='wl-inputs'>
 							<Form.Input
+								className='wl-field'
+								label='Current'
 								type="number" 
 								name="current" 
 								value={this.state.current}
 								onChange={this.handleChange}
-							/> lbs
-							<label>Goal: </label>
+							/>
+							<label className='lbs'>lbs</label>
+							<Icon className='cur-to-goal' name='long arrow alternate right'/>
 							<Form.Input
+								className='wl-field'
+								label='Goal'
 								type="number" 
 								name="goal"  
 								value={this.state.goal}
 								onChange={this.handleChange}
-							/> lbs
+							/>
+							<label className='lbs'>lbs</label>
 						</Form.Group>
 					: null}
 					{this.state.goalType === 'Strength' ? 
-						<Form.Group>
-							<label>Purpose: </label>
 							<Form.TextArea
+								className='str-textarea'
 								label='Purpose'
-								name="purpose" 
+								name='purpose'
+								placeholder='e.g. for a sport, new to lifting, need advice, be in better shape'
 								value={this.state.purpose} 
 								onChange={this.handleChange}
 							/>
-						</Form.Group>
 					: null}
-					<Form.Checkbox
-						label='Share?'
-						// type="checkbox" 
-						name="public" 
-						checked={this.state.public}
-						onChange={this.handleInputChange}
-					/>
-					<Button>Create</Button>
+					<Form.Group className='create-plan-share'>
+						<label>Share?</label>
+						<Form.Checkbox 
+							name="public" 
+							checked={this.state.public}
+							onChange={this.handleInputChange}
+						/>
+					</Form.Group>
+					
+					{this.state.goalType ? <Button>Create</Button> : null}
 				</Form>
 			</div>
 		)

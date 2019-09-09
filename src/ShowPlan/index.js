@@ -1,6 +1,7 @@
 import React from 'react'
 import CreateExercise from '../CreateExercise'
 import ExerciseList from './ExerciseList'
+import { Card, Button, Progress } from 'semantic-ui-react'
 
 class ShowPlan extends React.Component {
 	constructor() {
@@ -20,7 +21,10 @@ class ShowPlan extends React.Component {
 			// USED FOR EDITING EXERCISES
 			type: '',
 			activity: '',
-			description: ''
+			description: '',
+			// USED FOR PROGRESS
+			progressWeight: 187,
+			progressPercent: ''
 		}
 	}
 
@@ -28,6 +32,7 @@ class ShowPlan extends React.Component {
 		this.getPlan()
 		this.getExercises()
 	}
+
 
 	// ================= GET ALL PLANS ================= //
 
@@ -46,12 +51,21 @@ class ShowPlan extends React.Component {
 
 		const foundPlanResponse = await foundPlan.json()
 
+		// GET PROGRESS
+		const diffToGoal = foundPlanResponse.data.current - foundPlanResponse.data.goal
+		
+		const progressMade = foundPlanResponse.data.current - this.state.progressWeight
+
+		const progressPercent = (progressMade / diffToGoal)
+		console.log(progressPercent, '<---- progressPercent');
+
 		this.setState({
 			plan: foundPlanResponse.data,
 			goalType: foundPlanResponse.data.goalType,
 			current: foundPlanResponse.data.current,
 			goal: foundPlanResponse.data.goal,
-			purpose: foundPlanResponse.data.purpose
+			purpose: foundPlanResponse.data.purpose,
+			progressPercent: progressPercent
 		})
 	}
 
@@ -76,7 +90,7 @@ class ShowPlan extends React.Component {
 		this.setState({exercises: planExercises})
 	}
 
-	// === DETERMINE IF I'M EDITING OR CREATING === //
+	// ===== DETERMINE IF I'M EDITING OR CREATING ===== //
 
 	editingToggle = (e) => {
 		e.preventDefault()
@@ -139,7 +153,6 @@ class ShowPlan extends React.Component {
 			}
 
 			const deletedExerciseResponse = await deletedExercise.json()
-			console.log(deletedExerciseResponse, '<---- deletedExerciseResponse');
 
 			const undeletedExercises = this.state.exercises.filter(exercise => exercise._id !== deletedExerciseResponse.data._id)
 
@@ -253,78 +266,81 @@ class ShowPlan extends React.Component {
 	render() {
 		console.log(this.state, '<---- this.state in ShowPlan');
 		return (
-			<div>
-				<h1>Show Plan</h1>
-					{this.state.editing ? null : 
-						<div style={{border: '1px solid black'}}>
-							<div>Goal: {this.state.plan.goalType}</div>
-							{this.state.plan.goalType === 'Strength' ? <div>Purpose: {this.state.plan.purpose}</div> : null}
+			<div className='show-plan'>
+				{this.state.editing ? null : 
+					<Card className='show-plan-head'>
+						<Card.Content>
+							<Card.Header style={{fontSize: 20}}>Goal: {this.state.plan.goalType}</Card.Header>
+							{this.state.plan.goalType === 'Strength' ? <Card.Description>Purpose: {this.state.plan.purpose}</Card.Description> : null}
 							{this.state.plan.goalType === 'Weight loss' ? 
-								<div>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</div>
+								<Card.Description>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</Card.Description>
 							: null}
-							{this.state.plan.user === this.props.userId ? <button onClick={this.editingToggle}>Edit</button> : null}
-							{this.state.plan.user === this.props.userId ? <button onClick={this.deletePlan}>Delete</button> : null}
-						</div>
-					}
+						</Card.Content>
+						<Progress value={this.state.progressPercent} total='1' progress='percent' style={{position: 'relative', width: '80%'}}/>
+						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.editingToggle}>Edit</Button> : null}
+						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.deletePlan}>Delete</Button> : null}
+					</Card>
+				}
 
-					{this.state.editing ? 
-						<form onSubmit={this.handleSubmit}>
-							<select name="goalType" onChange={this.handleChange}>
-								<option defaultValue={this.state.plan.goalType}>{this.state.plan.goalType}</option>
-								<option value={this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}>{this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}</option>
-							</select>
-							{this.state.goalType === 'Weight loss' ? 
-								<div>
-									Current: <input 
-										type="number" 
-										name="current" 
-										value={this.state.current}
-										onChange={this.handleChange}
-									/> lbs <br />
-									Goal: <input 
-										type="number" 
-										name="goal"  
-										value={this.state.goal}
-										onChange={this.handleChange}
-									/> lbs <br />
-								</div>
-							: null}
-							{this.state.goalType === 'Strength' ? 
-								<div>
-									Purpose: 
-									<textarea 
-										name="purpose" 
-										value={this.state.purpose} 
-										onChange={this.handleChange}
-									/>
-								</div> 
-							: null}
-							Share?
-							<input 
-								type="checkbox"
-								name="public"
-								checked={this.state.public}
-								onChange={this.handleInputChange}
-							/>
-							<button>Update</button>
-						</form> 
-						: null
-					}
 
-					<ExerciseList 
-						planUserId={this.state.plan.user} 
-						userId={this.props.userId} 
-						exercises={this.state.exercises}
-						deleteExercise={this.deleteExercise}
-						updateExercise={this.updateExercise}
-					/>
+				{this.state.editing ? 
+					<form onSubmit={this.handleSubmit}>
+						<select name="goalType" onChange={this.handleChange}>
+							<option defaultValue={this.state.plan.goalType}>{this.state.plan.goalType}</option>
+							<option value={this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}>{this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}</option>
+						</select>
+						{this.state.goalType === 'Weight loss' ? 
+							<div>
+								Current: <input 
+									type="number" 
+									name="current" 
+									value={this.state.current}
+									onChange={this.handleChange}
+								/> lbs <br />
+								Goal: <input 
+									type="number" 
+									name="goal"  
+									value={this.state.goal}
+									onChange={this.handleChange}
+								/> lbs <br />
+							</div>
+						: null}
+						{this.state.goalType === 'Strength' ? 
+							<div>
+								Purpose: 
+								<textarea 
+									name="purpose" 
+									value={this.state.purpose} 
+									onChange={this.handleChange}
+								/>
+							</div> 
+						: null}
+						Share?
+						<input 
+							type="checkbox"
+							name="public"
+							checked={this.state.public}
+							onChange={this.handleInputChange}
+						/>
+						<button>Update</button>
+					</form> 
+					: null
+				}
 
-					{this.state.plan.user === this.props.userId ? 
-						<div>
-							<p onClick={this.creatingToggle}>+ Add Exercise</p>
-							{this.state.creatingX ? <CreateExercise addExercise={this.addExercise}/> : null}
-						</div>
-					: null}
+				<ExerciseList 
+					planUserId={this.state.plan.user} 
+					userId={this.props.userId} 
+					exercises={this.state.exercises}
+					deleteExercise={this.deleteExercise}
+					updateExercise={this.updateExercise}
+				/>
+
+				{this.state.plan.user === this.props.userId ? 
+					<div>
+						<p onClick={this.creatingToggle}>+ Add Exercise</p>
+						{this.state.creatingX ? <CreateExercise addExercise={this.addExercise}/> : null}
+					</div>
+				: null}
 			</div>
 		)
 	}
