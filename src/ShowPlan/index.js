@@ -293,7 +293,7 @@ class ShowPlan extends React.Component {
 						
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
 						{this.state.progressModal ? 
-							<EditProgressWeight handleProgressWeight={this.handleProgressWeight}/>
+							<EditProgressWeight progressWeight={this.state.progressWeight} handleProgressWeight={this.handleProgressWeight}/>
 						: null}
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.editingToggle}>Edit</Button> : null}
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.deletePlan}>Delete</Button> : null}

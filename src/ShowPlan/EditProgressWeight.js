@@ -10,6 +10,12 @@ class EditProgressWeight extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		this.setState({
+			editedWeight: this.props.progressWeight
+		})
+	}
+
 	handleChange = (e) => {
 		this.setState({
 			[e.currentTarget.name]: e.currentTarget.value
