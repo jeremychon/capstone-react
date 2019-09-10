@@ -13,11 +13,11 @@ class App extends React.Component {
 		super()
 
 		this.state = {
-			firstName: 'Jeremy',
-			lastName: 'Chon',
-			userId: '5d774c2a419597c74d1a418d',
+			firstName: '',
+			lastName: '',
+			userId: '',
 			profPic: null,
-			loggedIn: true,
+			loggedIn: false,
 			correctLog: true
 		}
 	}

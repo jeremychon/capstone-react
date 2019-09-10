@@ -2,7 +2,7 @@ import React from 'react'
 import CreateExercise from '../CreateExercise'
 import ExerciseList from './ExerciseList'
 import EditProgressWeight from './EditProgressWeight'
-import Comment from '../Comment'
+import Comments from '../Comment'
 import { Card, Button, Progress } from 'semantic-ui-react'
 
 class ShowPlan extends React.Component {
@@ -13,6 +13,7 @@ class ShowPlan extends React.Component {
 			editing: false,
 			creatingX: false,
 			exercises: [],
+			comments: [],
 			plan: {},
 			// USED FOR EDITING PLAN
 			goalType: '',
@@ -111,7 +112,8 @@ class ShowPlan extends React.Component {
 			goalType: foundPlanResponse.plan.goalType,
 			current: foundPlanResponse.plan.current,
 			goal: foundPlanResponse.plan.goal,
-			purpose: foundPlanResponse.plan.purpose
+			purpose: foundPlanResponse.plan.purpose,
+			comments: foundPlanResponse.comments
 		})
 	}
 
@@ -398,7 +400,10 @@ class ShowPlan extends React.Component {
 						{this.state.creatingX ? <CreateExercise addExercise={this.addExercise}/> : null}
 					</div>
 				: null}
-				<Comment />
+				<Comments 
+					plan={this.state.plan}
+					userId={this.props.userId}
+				/>
 			</div>
 		)
 	}
