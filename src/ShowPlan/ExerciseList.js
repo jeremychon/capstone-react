@@ -43,21 +43,20 @@ class ExerciseList extends React.Component {
 		}
 	}
 
-	changeEditModal = (setInfo, e) => {
-		e.preventDefault()
-		console.log(setInfo, '<---- setInfo --- hitting changeEditModal');
-		if (setInfo === 'weight') {
-			this.setState({editWeight: true})
-		}
+	// changeEditModal = (setInfo, e) => {
+	// 	e.preventDefault()
+	// 	if (setInfo === 'weight') {
+	// 		this.setState({editWeight: true})
+	// 	}
 
-		if (setInfo === 'reps') {
-			this.setState({editReps: true})
-		}
+	// 	if (setInfo === 'reps') {
+	// 		this.setState({editReps: true})
+	// 	}
 
-		if (setInfo === 'notes') {
-			this.setState({editNotes: true})
-		}
-	}
+	// 	if (setInfo === 'notes') {
+	// 		this.setState({editNotes: true})
+	// 	}
+	// }
 
 	changeSetsModal = () => {
 		this.setState({creatingSets: true})
@@ -102,10 +101,8 @@ class ExerciseList extends React.Component {
 			}
 
 			const deletedSetRes = await deletedSet.json()
-			console.log(deletedSetRes, '<---- deletedSetRes');
 
 			const undeletedSets = this.state.sets.filter(set => set._id !== deletedSetRes.data._id)
-			console.log(undeletedSets, '<---- undeletedSets');
 
 			this.setState({
 				sets: undeletedSets
@@ -116,16 +113,8 @@ class ExerciseList extends React.Component {
 		}
 	}
 
-	// updateSet = async (set) => {
-	// 	try {
-			
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// }
-
 	render() {
-		console.log(this.state, '<---- state in exercise list');
+		// console.log(this.state, '<---- state in exercise list');
 
 		const strExercises = this.props.exercises
 			.filter(exercise => exercise.type === 'Strength & Conditioning')

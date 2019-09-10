@@ -27,7 +27,7 @@ class CreateComment extends React.Component {
 		return (
 			<div>
 				<Form onSubmit={this.handleSubmit}>
-					<Form.Input 
+					<Form.TextArea 
 						type='text' 
 						name='comment' 
 						value={this.state.comment} 
