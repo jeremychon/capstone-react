@@ -98,7 +98,6 @@ class ShowPlan extends React.Component {
 			method: 'GET',
 			credentials: 'include'
 		})
-		console.log(foundPlan, '<---- foundPlan');
 
 		if (foundPlan.status !== 200) {
 			throw Error('foundPlan is not running');
@@ -402,6 +401,7 @@ class ShowPlan extends React.Component {
 				: null}
 				<Comments 
 					plan={this.state.plan}
+					comments={this.state.comments}
 					userId={this.props.userId}
 				/>
 			</div>

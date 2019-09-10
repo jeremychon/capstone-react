@@ -13,9 +13,7 @@ class Comments extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setState({
-			comments: this.props.plan.comments
-		})
+		
 	}
 
 	addComment = async (comment) => {
@@ -45,6 +43,7 @@ class Comments extends React.Component {
 	}
 
 	render() {
+		console.log(this.props, '<----- props in comments');
 		console.log(this.state, '<---- state in comments');
 		return (
 			<Comment.Group className='commentSection'>

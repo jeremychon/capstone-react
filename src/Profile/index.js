@@ -10,7 +10,9 @@ class Profile extends React.Component {
 		this.state = {
 			showPlan: true,
 			profPic: '',
-			plans: []
+			plans: [],
+			firstName: '',
+			lastName: ''
 		}
 	}
 
@@ -34,7 +36,9 @@ class Profile extends React.Component {
 		console.log(userInfoResponse, '<---- userInfoResponse');
 
 		this.setState({
-			plans: userInfoResponse.plans
+			plans: userInfoResponse.plans,
+			firstName: userInfoResponse.userData.firstName,
+			lastName: userInfoResponse.userData.lastName
 		})
 	}
 
@@ -48,7 +52,7 @@ class Profile extends React.Component {
 		console.log(this.state, '<----- state in profile');
 		return (
 			<div>
-				<h1>{this.props.firstName} {this.props.lastName}'s Profile</h1>
+				<h1>{this.state.firstName} {this.state.lastName}'s Profile</h1>
 				{this.props.profileSwitch ? 
 					<ProfilePlan 
 						showPlan={this.showPlan} 
