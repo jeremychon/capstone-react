@@ -194,7 +194,7 @@
   justify-content: center;
 }
 
-.ui.progress {
+#progress-bar {
   position: 'relative';
   margin: 0 auto 20px auto;
   width: 80%;
@@ -204,6 +204,7 @@
   width: 100%;
   margin: 10% 30%;
   display: flex;
+  justify-content: center;
   text-align: center;
 }
 

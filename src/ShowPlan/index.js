@@ -311,7 +311,8 @@ class ShowPlan extends React.Component {
 	// ============================================= //
 
 	render() {
-		console.log(this.state, '<---- this.state in ShowPlan');
+		console.log("this.state.plan in render() in ShowPlan");
+		console.log(this.state.plan);
 		return (
 			<div className='show-plan'>
 				{this.state.editing ? null : 
@@ -324,7 +325,7 @@ class ShowPlan extends React.Component {
 							: null}
 						</Card.Content>
 						{this.state.plan.goalType === 'Weight loss' ?
-							<Progress percent={this.state.plan.progressPercent} progress />
+							<Progress id='progress-bar' percent={this.state.plan.progressPercent} progress />
 						: null}
 						
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
@@ -399,11 +400,18 @@ class ShowPlan extends React.Component {
 						{this.state.creatingX ? <CreateExercise addExercise={this.addExercise}/> : null}
 					</div>
 				: null}
-				<Comments 
-					plan={this.state.plan}
-					comments={this.state.comments}
-					userId={this.props.userId}
-				/>
+
+				{
+					Object.keys(this.state.plan).length === 0 
+					?
+					null
+					:
+					<Comments 
+						plan={this.state.plan}
+						comments={this.state.comments}
+						userId={this.props.userId}
+					/>
+				}
 			</div>
 		)
 	}

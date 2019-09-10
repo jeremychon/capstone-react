@@ -31,7 +31,7 @@ class Register extends React.Component {
 		e.preventDefault()
 
 		const data = new FormData();
-		data.append('profPic', this.state.profPic)
+		// data.append('profPic', this.state.profPic)
 		data.append('firstName', this.state.firstName)
 		data.append('lastName', this.state.lastName)
 		data.append('email', this.state.email)
@@ -78,13 +78,6 @@ class Register extends React.Component {
 						placeholder='Enter a password' 
 						value={this.state.password}
 						onChange={this.handleChange} 
-					/>
-					<Form.Input
-						iconPosition='left'
-						icon='image'
-						type='file'
-						name='profPic'
-						onChange={this.handleChange}
 					/>
 					{this.state.userExists ? 
 						<Message

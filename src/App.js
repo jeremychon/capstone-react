@@ -111,7 +111,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		console.log(this.state, '<---- this.state in App');
+		// console.log(this.state, '<---- this.state in App');
 		return (
 			<main className="App">
 				<Switch>

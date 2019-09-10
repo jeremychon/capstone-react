@@ -20,16 +20,19 @@ class CreateComment extends React.Component {
 		e.preventDefault()
 
 		this.props.addComment(this.state)
+
+		this.setState({comment: ''})
 	}
 
 	render() {
-		console.log(this.state, '<--- state in create comment');
+		// console.log(this.state, '<--- state in create comment');
 		return (
 			<div>
 				<Form onSubmit={this.handleSubmit}>
 					<Form.TextArea 
 						type='text' 
-						name='comment' 
+						name='comment'
+						placeholder='Add a comment...'
 						value={this.state.comment} 
 						onChange={this.handleChange}
 					/>
