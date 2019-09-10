@@ -179,8 +179,8 @@ class ExerciseList extends React.Component {
 			})
 
 		return (
-			<div>
-				<h1 className='show-plan-titles'>Exercises</h1>
+			<div className='exerciseList'>
+				<h1 className='show-plan-head'>Exercises</h1>
 				<h2 className='show-plan-titles'>S & C</h2>
 				<Grid stackable columns={2}>{strExercises}</Grid>
 				<h2 className='show-plan-titles'>Cardio</h2>

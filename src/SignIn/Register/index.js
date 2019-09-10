@@ -10,19 +10,19 @@ class Register extends React.Component {
 			lastName: '',
 			email: '',
 			password: '',
-			image: {},
+			profPic: null,
 			userExists: false
 		}
 	}
 
 	handleChange = (e) => {
-		if (e.currentTarget.name !== 'image') {
+		if (e.currentTarget.name !== 'profPic') {
 			this.setState({
 				[e.currentTarget.name]: e.currentTarget.value
 			})
 		} else {
 			this.setState({
-				image: e.currentTarget.files[0]
+				profPic: e.currentTarget.files[0]
 			})
 		}
 	}
@@ -31,22 +31,18 @@ class Register extends React.Component {
 		e.preventDefault()
 
 		const data = new FormData();
-		data.append('profPic', this.state.image)
+		data.append('profPic', this.state.profPic)
 		data.append('firstName', this.state.firstName)
 		data.append('lastName', this.state.lastName)
 		data.append('email', this.state.email)
 		data.append('password', this.state.password)
-		
-		// for (let pair of data.entries()) {
-		// 	console.log(pair[0], ', ', pair[1]);
-		// }
 
-		const registerCall = this.props.register(data)
-		console.log(registerCall, '<---- registerCall');
+		this.props.register(data)
 	}
 
 
 	render() {
+		console.log(this.state, '<---- state in register');
 		return (
 			<div className='signInForm'>
 				<h2 className='signInTitles'>REGISTER</h2>
@@ -87,7 +83,7 @@ class Register extends React.Component {
 						iconPosition='left'
 						icon='image'
 						type='file'
-						name='image'
+						name='profPic'
 						onChange={this.handleChange}
 					/>
 					{this.state.userExists ? 

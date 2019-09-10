@@ -9,6 +9,7 @@ class Profile extends React.Component {
 
 		this.state = {
 			showPlan: true,
+			profPic: '',
 			plans: []
 		}
 	}
@@ -44,6 +45,7 @@ class Profile extends React.Component {
 	}
 
 	render() {
+		console.log(this.state, '<----- state in profile');
 		return (
 			<div>
 				<h1>{this.props.firstName} {this.props.lastName}'s Profile</h1>

@@ -2,6 +2,7 @@ import React from 'react'
 import CreateExercise from '../CreateExercise'
 import ExerciseList from './ExerciseList'
 import EditProgressWeight from './EditProgressWeight'
+import Comment from '../Comment'
 import { Card, Button, Progress } from 'semantic-ui-react'
 
 class ShowPlan extends React.Component {
@@ -50,7 +51,7 @@ class ShowPlan extends React.Component {
 	handleProgressWeight = async (weight) => {
 		const diffToGoal = this.state.plan.current - this.state.plan.goal
 		const progressMade = this.state.plan.current - weight
-		const progressPercent = (progressMade / diffToGoal)
+		const progressPercent = (progressMade / diffToGoal) * 100
 
 		try {
 			const updatedPlan = await fetch('http://localhost:9000/plan/' + this.state.plan._id, {
@@ -103,13 +104,14 @@ class ShowPlan extends React.Component {
 		}
 
 		const foundPlanResponse = await foundPlan.json()
+		console.log(foundPlanResponse, '<--- foundPlanResponse');
 
 		this.setState({
-			plan: foundPlanResponse.data,
-			goalType: foundPlanResponse.data.goalType,
-			current: foundPlanResponse.data.current,
-			goal: foundPlanResponse.data.goal,
-			purpose: foundPlanResponse.data.purpose
+			plan: foundPlanResponse.plan,
+			goalType: foundPlanResponse.plan.goalType,
+			current: foundPlanResponse.plan.current,
+			goal: foundPlanResponse.plan.goal,
+			purpose: foundPlanResponse.plan.purpose
 		})
 	}
 
@@ -321,7 +323,7 @@ class ShowPlan extends React.Component {
 							: null}
 						</Card.Content>
 						{this.state.plan.goalType === 'Weight loss' ?
-							<Progress value={this.state.plan.progressPercent} total='1' progress='percent'/>
+							<Progress percent={this.state.plan.progressPercent} progress />
 						: null}
 						
 						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
@@ -381,7 +383,7 @@ class ShowPlan extends React.Component {
 					</form> 
 					: null
 				}
-
+				
 				<ExerciseList 
 					planUserId={this.state.plan.user} 
 					userId={this.props.userId} 
@@ -391,11 +393,12 @@ class ShowPlan extends React.Component {
 				/>
 
 				{this.state.plan.user === this.props.userId ? 
-					<div>
-						<p onClick={this.creatingToggle}>+ Add Exercise</p>
+					<div className='createExercise'>
+						<div className='addExerciseButton' onClick={this.creatingToggle}>+ Add Exercise</div>
 						{this.state.creatingX ? <CreateExercise addExercise={this.addExercise}/> : null}
 					</div>
 				: null}
+				<Comment />
 			</div>
 		)
 	}

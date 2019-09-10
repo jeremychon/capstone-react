@@ -1,4 +1,5 @@
 import React from 'react'
+import { Form, Button } from 'semantic-ui-react'
 
 class CreateExercise extends React.Component {
 	constructor() {
@@ -19,16 +20,23 @@ class CreateExercise extends React.Component {
 	}
 
 	render() {
+		const options = [
+			{key: 'default', text: 'Select an option', value: 'DEFAULT'},
+			{key: 'S&C', text: 'Strength & Conditioning', value: 'Strength & Conditioning'},
+			{key: 'Cardio', text: 'Cardio', value: 'Cardio'}
+		]
 		// console.log(this.state, '<---- state in CreateExercise');
 		return (
-			<div>
-				<form onSubmit={this.props.addExercise.bind(null, this.state)}>
-					<select required name="type" onChange={this.handleChange}>
-						<option value="DEFAULT" hidden>Select an Option </option>
-						<option value="Strength & Conditioning">Strength & Conditioning</option>
-						<option value="Cardio">Cardio</option>
-					</select><br />
-					Exercise: <input 
+			<div className='createExerciseForm'>
+				<Form className='createExerciseInputs' onSubmit={this.props.addExercise.bind(null, this.state)}>
+					<Form.Select 
+						required 
+						options={options}
+						name="type" 
+						onChange={this.handleChange}
+					/>
+					<Form.Input
+						label='Exercise'
 						list="activity" 
 						name="activity"
 						autoComplete="off" 
@@ -49,19 +57,18 @@ class CreateExercise extends React.Component {
 								<option value="Bike" />
 								<option value="Swim" />
 							</datalist>
-							<div>
-								Notes: 
-								<textarea 
-									name="description" 
-									value={this.state.description} 
-									placeholder="e.g. Duration, Distance, etc." 
-									onChange={this.handleChange}
-								/>
-							</div>
+							<Form.Textarea
+								label='Notes: '
+								name="description" 
+								value={this.state.description} 
+								placeholder="e.g. Duration, Distance, etc." 
+								onChange={this.handleChange}
+							/>
 						</div>
 					: null}<br />
-					<button>Create</button>
-				</form>
+					<Button>Create</Button>
+				</Form>
+				<Button style={{marginTop: 10}}>Cancel</Button>
 			</div>
 		)
 	}

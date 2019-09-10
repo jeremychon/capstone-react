@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
 /* SIGN IN PAGE */
 
@@ -124,6 +125,16 @@
   justify-content: space-evenly;
 }
 
+.ui.menu:after {
+  content: none;
+}
+
+.communityFilterItem {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
 /* CREATE PLAN */
 
 .create-plan {
@@ -196,10 +207,64 @@
   text-align: center;
 }
 
+.show-plan-head {
+  text-align: center;
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+}
+
 .show-plan-titles {
+  text-align: center;
+  padding-bottom: 20px;
+  width: 50%;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* EXERCISE LIST */
+
+.exerciseList {
+  width: 100%;
+  padding-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.addExerciseButton {
+  width: 100%;
   text-align: center;
 }
 
+.createExercise {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+.createExerciseForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.createExerciseInputs {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 35%;
+}
+
+/* COMMENT */
+
+.commentSection {
+  width: 100%;
+  margin-bottom: 20%;
+  display: flex;
+  justify-content: center;
+}
 
 
 

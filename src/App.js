@@ -13,38 +13,77 @@ class App extends React.Component {
 		super()
 
 		this.state = {
-			firstName: '',
-			lastName: '',
-			userId: '',
-			image: '',
-			loggedIn: false
+			firstName: 'Jeremy',
+			lastName: 'Chon',
+			userId: '5d774c2a419597c74d1a418d',
+			profPic: null,
+			loggedIn: true,
+			correctLog: true
 		}
 	}
 
 	register = async (data) => {
+		try {
+			const registerRes = await fetch('http://localhost:9000/user/register', {
+				method: 'POST',
+				credentials: 'include',
+				body: data,
+				headers: {
+					'enctype': 'multipart/form-data'
+				}
+			});
+			console.log(registerRes, '<---- registerRes');
 
-		const register = await fetch('http://localhost:9000/user/register', {
+			if (registerRes.status !== 200) {
+				throw Error('register is not running')
+			}
+
+			const parsedRegister = await registerRes.json();
+			console.log(parsedRegister, '<---- parsedRegister');
+
+
+			if (parsedRegister.code === 200) {
+				this.setState({
+					...parsedRegister.data,
+					userId: parsedRegister.data._id,
+					loggedIn: true
+				})
+
+				this.props.history.push('/community')
+			} else {
+				this.setState({userExists: true})
+			}
+
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	login = async (data) => {
+		const login = await fetch('http://localhost:9000/user/login', {
 			method: 'POST',
 			credentials: 'include',
-			body: data,
+			body: JSON.stringify(data),
 			headers: {
-				'enctype': 'multipart/form-data'
+				'Content-Type': 'application/json'
 			}
-		});
-
-		const parsedRegister = await register.json();
-		console.log(parsedRegister, '<---- parsedRegister');
-
-		this.setState({
-			...parsedRegister.data,
-			userId: parsedRegister.data._id,
-			loggedIn: true
 		})
 
-		if (parsedRegister.code === 200) {
+		const parsedLogin = await login.json()
+
+		if (parsedLogin.code === 200) {
+			this.setState({
+				...parsedLogin.data,
+				userId: parsedLogin.data._id,
+				loggedIn: true
+			})
 			this.props.history.push('/community')
 		} else {
-			this.setState({userExists: true})
+			this.setState({
+				loggedIn: false,
+				correctLog: false
+			})
+
 		}
 	}
 
@@ -80,7 +119,10 @@ class App extends React.Component {
 						exact path='/' 
 						render={(props) => 
 							<SignIn {...props} 
-								register={this.register}/>
+								register={this.register}
+								login={this.login}
+								correctLog={this.state.correctLog}
+							/>
 						}
 					/>
 					<Route>
@@ -102,7 +144,12 @@ class App extends React.Component {
 						/>
 						<Route 
 							exact path='/user/:id' 
-							render={(props) => this.state.loggedIn ? <Profile {...props} firstName={this.state.firstName} lastName={this.state.lastName} profileSwitch={this.state.profileSwitch}/> : <Redirect to='/' />}
+							render={(props) => this.state.loggedIn ? 
+								<Profile {...props} 
+									userInfo={this.state}
+									profileSwitch={this.state.profileSwitch}
+								/> 
+								: <Redirect to='/' />}
 						/>
 					</Route>
 				</Switch>
