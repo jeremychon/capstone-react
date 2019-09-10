@@ -30,7 +30,7 @@ class CreatePlan extends React.Component {
 		e.preventDefault()
 
 		try {
-			const createdPlan = await fetch('http://localhost:9000/plan/', {
+			const createdPlan = await fetch(process.env.REACT_APP_BACKEND_URL + '/plan/', {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(this.state),

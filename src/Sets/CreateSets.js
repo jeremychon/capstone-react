@@ -29,7 +29,7 @@ class CreateSets extends React.Component {
 	}
 
 	render() {
-		console.log(this.state, '<---- state in create sets');
+		// console.log(this.state, '<---- state in create sets');
 		return (
 			<form onSubmit={this.handleSubmit}>
 				Weight: <input 

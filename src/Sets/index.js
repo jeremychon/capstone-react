@@ -18,16 +18,14 @@ class Sets extends React.Component {
 
 	getSets = async () => {
 		try {
-			const allSets = await fetch('http://localhost:9000/set/', {
+			const allSets = await fetch(process.env.REACT_APP_BACKEND_URL + '/set/', {
 				method: 'GET',
 				credentials: 'include'
 			})
 
 			const allSetsRes = await allSets.json()
-			console.log(allSetsRes, '<---- allSetsRes');
 
 			const filterSets = allSetsRes.data.filter(sets => sets.exerciseId === this.props.exerciseId)
-			console.log(filterSets, '<----- filterSets');
 
 			this.setState({
 				sets: filterSets
@@ -39,7 +37,7 @@ class Sets extends React.Component {
 
 	createSet = async (set) => {
 		try {
-			const createdSet = await fetch('http://localhost:9000/set/', {
+			const createdSet = await fetch(process.env.REACT_APP_BACKEND_URL + '/set/', {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(set),
@@ -49,7 +47,6 @@ class Sets extends React.Component {
 			})
 
 			const createdSetRes = await createdSet.json()
-			console.log(createdSetRes, '<---- createSetRes');
 
 			this.setState({
 				sets: [...this.state.sets, createdSetRes.data],
@@ -71,7 +68,7 @@ class Sets extends React.Component {
 		// e.preventDefault()
 
 		try {
-			const deletedSet = await fetch('http://localhost:9000/set/' + set._id, {
+			const deletedSet = await fetch(process.env.REACT_APP_BACKEND_URL + '/set/' + set._id, {
 				method: 'DELETE',
 				credentials: 'include'
 			})
@@ -81,7 +78,6 @@ class Sets extends React.Component {
 			}
 
 			const undeletedSets = this.state.sets.filter(s => s._id !== set._id)
-			console.log(undeletedSets, '<---- undeletedSets');
 
 			this.setState({sets: undeletedSets})
 		} catch (err) {
@@ -91,7 +87,7 @@ class Sets extends React.Component {
 
 
 	render() {
-		console.log(this.state , '<---- state in sets');
+		// console.log(this.state , '<---- state in sets');
 		return (
 			<div>
 				<h3>Sets</h3>

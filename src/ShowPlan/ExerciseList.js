@@ -26,7 +26,7 @@ class ExerciseList extends React.Component {
 
 	getSets = async () => {
 		try {
-			const allSets = await fetch('http://localhost:9000/set/', {
+			const allSets = await fetch(process.env.REACT_APP_BACKEND_URL + '/set/', {
 				method: 'GET',
 				credentials: 'include'
 			})
@@ -64,7 +64,7 @@ class ExerciseList extends React.Component {
 
 	addSet = async (set) => {
 		try {
-			const createdSet = await fetch('http://localhost:9000/set/', {
+			const createdSet = await fetch(process.env.REACT_APP_BACKEND_URL + '/set/', {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(set),
@@ -91,7 +91,7 @@ class ExerciseList extends React.Component {
 
 	deleteSet = async (set) => {
 		try {
-			const deletedSet = await fetch('http://localhost:9000/set/' + set._id, {
+			const deletedSet = await fetch(process.env.REACT_APP_BACKEND_URL + '/set/' + set._id, {
 				method: 'DELETE',
 				credentials: 'include'
 			})

@@ -13,19 +13,18 @@ class CreateExercise extends React.Component {
 		}
 	}
 
-	handleChange = (e) => {
+	handleChange = (e, { name, value }) => {
 		this.setState({
-			[e.currentTarget.name]: e.currentTarget.value
+			[name]: value
 		})
 	}
 
 	render() {
 		const options = [
-			{key: 'default', text: 'Select an option', value: 'DEFAULT'},
-			{key: 'S&C', text: 'Strength & Conditioning', value: 'Strength & Conditioning'},
+			{key: 'Strength & Conditioning', text: 'Strength & Conditioning', value: 'Strength & Conditioning'},
 			{key: 'Cardio', text: 'Cardio', value: 'Cardio'}
 		]
-		// console.log(this.state, '<---- state in CreateExercise');
+		console.log(this.state, '<---- state in CreateExercise');
 		return (
 			<div className='createExerciseForm'>
 				<Form className='createExerciseInputs' onSubmit={this.props.addExercise.bind(null, this.state)}>
@@ -34,6 +33,7 @@ class CreateExercise extends React.Component {
 						options={options}
 						name="type" 
 						onChange={this.handleChange}
+						placeholder='Select an option'
 					/>
 					<Form.Input
 						label='Exercise'

@@ -19,7 +19,7 @@ class Community extends React.Component {
 	}
 
 	getAllPlans = async () => {
-		const allPlans = await fetch('http://localhost:9000/plan/', {
+		const allPlans = await fetch(process.env.REACT_APP_BACKEND_URL + '/plan/', {
 			method: 'GET',
 			credentials: 'include'
 		})

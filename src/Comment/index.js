@@ -13,16 +13,12 @@ class Comments extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("componentDidMount in Comments -- getComments about to be called");
 		this.getComments()
 	}
 
 	getComments = async () => {
-		console.log("here's this.props.plan in getComments in Comments")
-		console.log(this.props.plan._id);
 		try {
-			const url = 'http://localhost:9000/comment/' + this.props.plan._id
-			console.log("we're gonna fetch to this URL in getComments in Comments");
+			const url = process.env.REACT_APP_BACKEND_URL + '/comment/' + this.props.plan._id
 			const foundComments = await fetch(url, {
 				method: 'GET',
 				credentials: 'include'
@@ -33,8 +29,7 @@ class Comments extends React.Component {
 			}
 
 			const foundCommentsRes = await foundComments.json()
-			console.log("here's the comments we got in getComments in Comment.js");
-			console.log(foundCommentsRes);
+			
 			this.setState({comments: foundCommentsRes.data})
 
 		} catch (err) {
@@ -44,7 +39,7 @@ class Comments extends React.Component {
 
 	addComment = async (comment) => {
 		try {
-			const addedComment = await fetch('http://localhost:9000/comment/' + this.props.plan._id, {
+			const addedComment = await fetch(process.env.REACT_APP_BACKEND_URL + '/comment/' + this.props.plan._id, {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(comment),
@@ -67,8 +62,6 @@ class Comments extends React.Component {
 	}
 
 	render() {
-		console.log("here's this.props.plan in render() in Comment -- should contain ID");
-		console.log(this.props.plan);
 		return (
 			<Comment.Group className='commentSection'>
 				<Header as='h3' dividing>Comments</Header>

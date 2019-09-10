@@ -75,7 +75,6 @@ class ShowPlan extends React.Component {
 			}
 
 			const updatedPlanRes = await updatedPlan.json()
-			console.log(updatedPlanRes, '<---- updatedPlanRes');
 
 			this.setState({
 				plan: updatedPlanRes.data,
@@ -94,7 +93,7 @@ class ShowPlan extends React.Component {
 	getPlan = async () => {
 		const { id } = this.props.match.params
 
-		const foundPlan = await fetch('http://localhost:9000/plan/' + id, {
+		const foundPlan = await fetch(process.env.REACT_APP_BACKEND_URL + '/plan/' + id, {
 			method: 'GET',
 			credentials: 'include'
 		})
@@ -104,7 +103,6 @@ class ShowPlan extends React.Component {
 		}
 
 		const foundPlanResponse = await foundPlan.json()
-		console.log(foundPlanResponse, '<--- foundPlanResponse');
 
 		this.setState({
 			plan: foundPlanResponse.plan,
@@ -121,7 +119,7 @@ class ShowPlan extends React.Component {
 	getExercises = async () => {
 		const { id } = this.props.match.params
 
-		const allExercises = await fetch('http://localhost:9000/exercise/', {
+		const allExercises = await fetch(process.env.REACT_APP_BACKEND_URL + '/exercise/', {
 			method: 'GET',
 			credentials: 'include'
 		})
@@ -159,7 +157,7 @@ class ShowPlan extends React.Component {
 		try {
 			exercise.planId = this.state.plan._id
 
-			const addedExercise = await fetch('http://localhost:9000/exercise/', {
+			const addedExercise = await fetch(process.env.REACT_APP_BACKEND_URL + '/exercise/', {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(exercise),
@@ -173,7 +171,6 @@ class ShowPlan extends React.Component {
 			}
 
 			const addedExerciseResponse = await addedExercise.json()
-			console.log(addedExerciseResponse, '<---- addedExerciseResponse');
 
 			this.setState({
 				exercises: [...this.state.exercises, addedExerciseResponse.data],
@@ -190,7 +187,7 @@ class ShowPlan extends React.Component {
 	deleteExercise = async (exerciseId, e) => {
 
 		try {
-			const deletedExercise = await fetch('http://localhost:9000/exercise/' + exerciseId, {
+			const deletedExercise = await fetch(process.env.REACT_APP_BACKEND_URL + '/exercise/' + exerciseId, {
 				method: 'DELETE',
 				credentials: 'include'
 			})
@@ -217,7 +214,7 @@ class ShowPlan extends React.Component {
 
 	updateExercise = async (exercise) => {
 		try {
-			const updatedExercise = await fetch('http://localhost:9000/exercise/' + exercise.id, {
+			const updatedExercise = await fetch(process.env.REACT_APP_BACKEND_URL + '/exercise/' + exercise.id, {
 				method: 'PUT',
 				credentials: 'include',
 				body: JSON.stringify(exercise),
@@ -253,7 +250,7 @@ class ShowPlan extends React.Component {
 	deletePlan = async (e) => {
 		e.preventDefault()
 
-		const deletedPlan = await fetch('http://localhost:9000/plan/' + this.state.plan._id, {
+		const deletedPlan = await fetch(process.env.REACT_APP_BACKEND_URL + '/plan/' + this.state.plan._id, {
 			method: 'DELETE',
 			credentials: 'include'
 		})
@@ -282,7 +279,7 @@ class ShowPlan extends React.Component {
 	handleSubmit = async (e) => {
 		e.preventDefault()
 
-		const updatedPlan = await fetch('http://localhost:9000/plan/' + this.state.plan._id, {
+		const updatedPlan = await fetch(process.env.REACT_APP_BACKEND_URL + '/plan/' + this.state.plan._id, {
 			method: 'PUT',
 			credentials: 'include',
 			body: JSON.stringify({

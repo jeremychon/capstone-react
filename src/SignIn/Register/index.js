@@ -30,20 +30,12 @@ class Register extends React.Component {
 	handleSubmit = async (e) => {
 		e.preventDefault()
 
-		// const data = new FormData();
-		// data.append('profPic', this.state.profPic)
-		// data.append('firstName', this.state.firstName)
-		// data.append('lastName', this.state.lastName)
-		// data.append('email', this.state.email)
-		// data.append('password', this.state.password)
-
-		// this.props.register(data)
 		this.props.register(this.state)
 	}
 
 
 	render() {
-		console.log(this.state, '<---- state in register');
+		// console.log(this.state, '<---- state in register');
 		return (
 			<div className='signInForm'>
 				<h2 className='signInTitles'>REGISTER</h2>

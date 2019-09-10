@@ -23,7 +23,7 @@ class Profile extends React.Component {
 	getUser = async () => {
 		const { id } = this.props.match.params
 
-		const userInfo = await fetch('http://localhost:9000/user/' + id, {
+		const userInfo = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/' + id, {
 			method: 'GET',
 			credentials: 'include'
 		})
@@ -33,7 +33,6 @@ class Profile extends React.Component {
 		}
 
 		const userInfoResponse = await userInfo.json()
-		console.log(userInfoResponse, '<---- userInfoResponse');
 
 		this.setState({
 			plans: userInfoResponse.plans,
@@ -49,7 +48,7 @@ class Profile extends React.Component {
 	}
 
 	render() {
-		console.log(this.state, '<----- state in profile');
+		// console.log(this.state, '<----- state in profile');
 		return (
 			<div>
 				<h1>{this.state.firstName} {this.state.lastName}'s Profile</h1>

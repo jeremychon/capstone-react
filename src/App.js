@@ -24,22 +24,20 @@ class App extends React.Component {
 
 	register = async (data) => {
 		try {
-			const registerRes = await fetch('http://localhost:9000/user/register', {
+			const registerRes = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/register', {
 				method: 'POST',
 				credentials: 'include',
-				body: data,
+				body: JSON.stringify(data),
 				headers: {
-					'enctype': 'multipart/form-data'
+					'Content-Type': 'application/json'
 				}
 			});
-			console.log(registerRes, '<---- registerRes');
 
 			if (registerRes.status !== 200) {
 				throw Error('register is not running')
 			}
 
 			const parsedRegister = await registerRes.json();
-			console.log(parsedRegister, '<---- parsedRegister');
 
 
 			if (parsedRegister.code === 200) {
@@ -60,7 +58,7 @@ class App extends React.Component {
 	}
 
 	login = async (data) => {
-		const login = await fetch('http://localhost:9000/user/login', {
+		const login = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/login', {
 			method: 'POST',
 			credentials: 'include',
 			body: JSON.stringify(data),
@@ -91,7 +89,8 @@ class App extends React.Component {
 		e.preventDefault()
 
 		try {
-			const loggedOutUser = await fetch('http://localhost:9000/user/logout', {
+
+			const loggedOutUser = await fetch(process.env.REACT_APP_BACKEND_URL + '/user/logout', {
 				method: 'POST',
 				credentials: 'include'
 			})

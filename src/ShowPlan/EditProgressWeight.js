@@ -29,6 +29,7 @@ class EditProgressWeight extends React.Component {
 	}
 
 	render() {
+		// console.log(this.state, '<---- state in EditProgressWeight');
 		return (
 			<div>
 				<Form onSubmit={this.handleSubmit}>
