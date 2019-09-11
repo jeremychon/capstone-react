@@ -1,5 +1,6 @@
 import React from 'react'
 import EditSet from './EditSet'
+import { Card } from 'semantic-ui-react'
 
 const SetsList = (props) => {
 	console.log(props, '<---- props in sets list');
@@ -7,32 +8,28 @@ const SetsList = (props) => {
 	const filterSets = props.sets.filter(set => set.exerciseId === props.exerciseId)
 		.map((s, i) => {
 			return (
-				<div key={s._id}>
-					<div>{i + 1}</div>
-					{props.editWeight ? <EditSet editWeight/> : 
-						<div onClick={props.changeEditModal.bind(null, 'weight')}> 
+				<Card key={s._id}>
+					<Card.Content>
+						<Card.Meta>{i + 1}</Card.Meta> 
+						<Card.Description> 
 							Weight: {s.weight} lbs
-						</div>
-					}
-					{props.editReps ? <EditSet reps='reps'/> : 
-						<div onClick={props.changeEditModal.bind(null, 'reps')}>
+						</Card.Description>
+						<Card.Description>
 							Reps: {s.reps}
-						</div>
-					}
-					{props.editNotes ? <EditSet notes='notes'/> : 
-						<div onClick={props.changeEditModal.bind(null, 'notes')}>
+						</Card.Description>
+						<Card.Description>
 							Notes: {s.notes}
-						</div>
-					}
+						</Card.Description>
+					</Card.Content>
 					<button onClick={props.deleteSet.bind(null, s)}>Delete</button>
-				</div>
+				</Card>
 			)
 		})
 	
 	return (
-		<div>
+		<Card.Group>
 			{filterSets}
-		</div>
+		</Card.Group>
 	)
 }
 

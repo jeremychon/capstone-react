@@ -6,14 +6,14 @@ import { Divider } from 'semantic-ui-react'
 
 const SignIn = (props) => {
 	return (
-		<div className='signInBackground'>
-			<div className='signInTitle'>
-				<div className='signInWeightTitle'>weight</div>
-				<div className='signInMateTitle'>MATE</div>
+		<div className='signIn-background'>
+			<div className='signIn-title'>
+				<div className='signIn-weight-title'>weight</div>
+				<div className='signIn-mate-title'>MATE</div>
 			</div>
-			<div className='signInForms'>
+			<div className='signIn-forms'>
 				<Login {...props} userLog={props.userLog} />
-				<div className='signInDivider'>
+				<div className='signIn-divider'>
 					<Divider vertical style={{color: 'white', fontSize: 20}}>OR</Divider>
 				</div>
 				<Register {...props} userLog={props.userLog} />

@@ -1,28 +1,28 @@
 import React from 'react'
+import { Card, Icon } from 'semantic-ui-react'
 
 const ProfilePlan = (props) => {
 	const userPlans = props.plans.map((plan) => {
 		return (
-			<div 
+			<Card 
 				key={plan._id} 
-				style={{border: '1px solid black', display: 'inline-block', width: 100}}
 				onClick={props.showPlan.bind(null, plan._id)}
 			>
-				<div>{plan.goalType}</div>
-				{plan.goalType === 'Weight loss' ? 
-					<div>
-						<div>Current: {plan.current}</div>
-						<div>Goal: {plan.goal}</div>
-					</div>
-				: <div>Purpose: {plan.purpose}</div>}
-				<br />
-			</div>
+				<Card.Content>
+					<Card.Header>{plan.goalType}</Card.Header>
+					{plan.goalType === 'Weight loss' ? 
+						<Card.Description>
+							{plan.current} <Icon name='angle double right'/> {plan.goal}
+						</Card.Description>
+					: <Card.Description>Purpose: {plan.purpose}</Card.Description>}
+				</Card.Content>
+			</Card>
 		)
 	})
 
 	return (
 		<div>
-			<h2>Plans</h2>
+			<h2 className='profile-page-subtitle'>Plans</h2>
 			<div>{userPlans}</div>
 		</div>
 	)

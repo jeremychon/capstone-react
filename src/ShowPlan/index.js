@@ -1,5 +1,6 @@
 import React from 'react'
 import CreateExercise from '../CreateExercise'
+import EditPlan from './EditPlan'
 import ExerciseList from './ExerciseList'
 import EditProgressWeight from './EditProgressWeight'
 import Comments from '../Comment'
@@ -15,12 +16,6 @@ class ShowPlan extends React.Component {
 			exercises: [],
 			comments: [],
 			plan: {},
-			// USED FOR EDITING PLAN
-			goalType: '',
-			purpose: '',
-			current: '',
-			goal:'',
-			public: false,
 			// USED FOR EDITING EXERCISES
 			type: '',
 			activity: '',
@@ -40,7 +35,10 @@ class ShowPlan extends React.Component {
 	showProgressModal = (e) => {
 		e.preventDefault()
 
-		this.setState({progressModal: true})
+		this.setState({
+			editing: false,
+			progressModal: true
+		})
 	}
 
 	hideProgressModal = (e) => {
@@ -63,7 +61,7 @@ class ShowPlan extends React.Component {
 					current: this.state.current,
 					goal: this.state.goal,
 					progressWeight: weight,
-					progressPercent: progressPercent
+					progressPercent: Math.floor(progressPercent)
 				}),
 				headers: {
 					'Content-Type': 'application/json'
@@ -140,13 +138,22 @@ class ShowPlan extends React.Component {
 	editingToggle = (e) => {
 		e.preventDefault()
 
-		this.setState({editing: true})
+		this.setState({
+			editing: true,
+			progressModal: false
+		})
 	}
 
 	creatingToggle = (e) => {
 		e.preventDefault()
 
 		this.setState({creatingX: true})
+	}
+
+	hideCreateExercise = (e) => {
+		e.preventDefault()
+
+		this.setState({creatingX: false})
 	}
 
 	// ================= CREATE EXERCISE ================= //
@@ -264,124 +271,67 @@ class ShowPlan extends React.Component {
 	
 	// ================= EDIT PLAN ================= //
 
-	handleChange = (e) => {
-		this.setState({
-			[e.currentTarget.name]: e.currentTarget.value
-		})
-	}
+	editingPlan = async (plan, e) => {
+		try {
+			const updatedPlan = await fetch(process.env.REACT_APP_BACKEND_URL + '/plan/' + this.state.plan._id, {
+				method: 'PUT',
+				credentials: 'include',
+				body: JSON.stringify(plan),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
 
-	handleInputChange = (e) => {
-		this.setState({
-			public: e.currentTarget.checked ? true : false
-		})
-	}
-
-	handleSubmit = async (e) => {
-		e.preventDefault()
-
-		const updatedPlan = await fetch(process.env.REACT_APP_BACKEND_URL + '/plan/' + this.state.plan._id, {
-			method: 'PUT',
-			credentials: 'include',
-			body: JSON.stringify({
-				goalType: this.state.goalType,
-				current: parseInt(this.state.current),
-				goal: parseInt(this.state.goal),
-				public: this.state.public
-			}),
-			headers: {
-				'Content-Type': 'application/json'
+			if (updatedPlan.status !== 200) {
+				throw Error('updatedPlan is not running')
 			}
-		})
 
-		if (updatedPlan.status !== 200) {
-			throw Error('updatedPlan is not running')
+			const updatedPlanRes = await updatedPlan.json()
+
+			this.setState({
+				editing: false,
+				plan: updatedPlanRes.data
+			})
+		} catch (err) {
+			console.log(err);
 		}
-
-		const updatedPlanResponse = await updatedPlan.json()
-
-		this.setState({
-			editing: false,
-			plan: updatedPlanResponse.data
-		})
 	}
 
 	// ============================================= //
 
 	render() {
-		console.log("this.state.plan in render() in ShowPlan");
-		console.log(this.state.plan);
+		console.log(this.state, '<---- state in Show Plan index');
 		return (
 			<div className='show-plan'>
-				{this.state.editing ? null : 
-					<Card className='show-plan-head'>
-						<Card.Content>
-							<Card.Header style={{fontSize: 20}}>Goal: {this.state.plan.goalType}</Card.Header>
-							{this.state.plan.goalType === 'Strength' ? <Card.Description>Purpose: {this.state.plan.purpose}</Card.Description> : null}
-							{this.state.plan.goalType === 'Weight loss' ? 
-								<Card.Description>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</Card.Description>
-							: null}
-						</Card.Content>
-						{this.state.plan.goalType === 'Weight loss' ?
-							<Progress id='progress-bar' percent={this.state.plan.progressPercent} progress />
+				<Card className='show-plan-head'>
+					<Card.Content>
+						<Card.Header style={{fontSize: 20}}>Goal: {this.state.plan.goalType}</Card.Header>
+						{this.state.plan.goalType === 'Strength' ? <Card.Description>Purpose: {this.state.plan.purpose}</Card.Description> : null}
+						{this.state.plan.goalType === 'Weight loss' ? 
+							<Card.Description>From {this.state.plan.current} lbs to {this.state.plan.goal} lbs</Card.Description>
 						: null}
-						
-						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
-						{this.state.progressModal ? 
-							<EditProgressWeight 
-								progressWeight={this.state.progressWeight} 
-								handleProgressWeight={this.handleProgressWeight}
-								hideProgressModal={this.hideProgressModal}
-							/>
-						: null}
-						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.editingToggle}>Edit</Button> : null}
-						{this.state.plan.user === this.props.userId ? <Button basic onClick={this.deletePlan}>Delete</Button> : null}
-					</Card>
-				}
-
-
-				{this.state.editing ? 
-					<form onSubmit={this.handleSubmit}>
-						<select name="goalType" onChange={this.handleChange}>
-							<option defaultValue={this.state.plan.goalType}>{this.state.plan.goalType}</option>
-							<option value={this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}>{this.state.plan.goalType === 'Weight loss' ? 'Strength' : 'Weight loss'}</option>
-						</select>
-						{this.state.goalType === 'Weight loss' ? 
-							<div>
-								Current: <input 
-									type="number" 
-									name="current" 
-									value={this.state.current}
-									onChange={this.handleChange}
-								/> lbs <br />
-								Goal: <input 
-									type="number" 
-									name="goal"  
-									value={this.state.goal}
-									onChange={this.handleChange}
-								/> lbs <br />
-							</div>
-						: null}
-						{this.state.goalType === 'Strength' ? 
-							<div>
-								Purpose: 
-								<textarea 
-									name="purpose" 
-									value={this.state.purpose} 
-									onChange={this.handleChange}
-								/>
-							</div> 
-						: null}
-						Share?
-						<input 
-							type="checkbox"
-							name="public"
-							checked={this.state.public}
-							onChange={this.handleInputChange}
+					</Card.Content>
+					{this.state.plan.goalType === 'Weight loss' ?
+						<Progress id='progress-bar' percent={this.state.plan.progressPercent} progress />
+					: null}
+					
+					{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
+					{this.state.progressModal ? 
+						<EditProgressWeight 
+							progressWeight={this.state.progressWeight} 
+							handleProgressWeight={this.handleProgressWeight}
+							hideProgressModal={this.hideProgressModal}
 						/>
-						<button>Update</button>
-					</form> 
-					: null
-				}
+					: null}
+					{this.state.plan.user === this.props.userId ? <Button basic onClick={this.editingToggle}>Edit</Button> : null}
+					{this.state.editing ? 
+						<EditPlan 
+							editingPlan={this.editingPlan}
+							plan={this.state.plan}
+						/> 
+					: null}
+					{this.state.plan.user === this.props.userId ? <Button basic onClick={this.deletePlan}>Delete</Button> : null}
+				</Card>
 				
 				<ExerciseList 
 					planUserId={this.state.plan.user} 
@@ -392,17 +342,14 @@ class ShowPlan extends React.Component {
 				/>
 
 				{this.state.plan.user === this.props.userId ? 
-					<div className='createExercise'>
-						<div className='addExerciseButton' onClick={this.creatingToggle}>+ Add Exercise</div>
-						{this.state.creatingX ? <CreateExercise addExercise={this.addExercise}/> : null}
+					<div className='create-exercise'>
+						<div className='add-exercise-button' onClick={this.creatingToggle}>+ Add Exercise</div>
+						{this.state.creatingX ? <CreateExercise addExercise={this.addExercise} hideCreateExercise={this.hideCreateExercise}/> : null}
 					</div>
 				: null}
 
 				{
-					Object.keys(this.state.plan).length === 0 
-					?
-					null
-					:
+					Object.keys(this.state.plan).length === 0 ? null :
 					<Comments 
 						plan={this.state.plan}
 						comments={this.state.comments}

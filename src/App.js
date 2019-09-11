@@ -125,7 +125,13 @@ class App extends React.Component {
 						}
 					/>
 					<Route>
-						{this.state.loggedIn ? <Header logout={this.logout} userId={this.state.userId} showUserPlans={this.showUserPlans}/> : null}
+						{this.state.loggedIn ? 
+							<Header 
+								logout={this.logout} 
+								userId={this.state.userId} 
+								showUserPlans={this.showUserPlans}
+							/> 
+						: null}
 						<Route 
 							exact path='/community' 
 							render={(props) => this.state.loggedIn ? <Community {...props} /> : <Redirect to='/' />}

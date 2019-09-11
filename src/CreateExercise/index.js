@@ -26,8 +26,8 @@ class CreateExercise extends React.Component {
 		]
 		console.log(this.state, '<---- state in CreateExercise');
 		return (
-			<div className='createExerciseForm'>
-				<Form className='createExerciseInputs' onSubmit={this.props.addExercise.bind(null, this.state)}>
+			<div className='create-exercise-form'>
+				<Form className='create-exercise-inputs'>
 					<Form.Select 
 						required 
 						options={options}
@@ -57,7 +57,7 @@ class CreateExercise extends React.Component {
 								<option value="Bike" />
 								<option value="Swim" />
 							</datalist>
-							<Form.Textarea
+							<Form.TextArea
 								label='Notes: '
 								name="description" 
 								value={this.state.description} 
@@ -66,9 +66,9 @@ class CreateExercise extends React.Component {
 							/>
 						</div>
 					: null}<br />
-					<Button>Create</Button>
+					<Button onClick={this.props.addExercise.bind(null, this.state)}>Create</Button>
+					<Button onClick={this.props.hideCreateExercise} >Cancel</Button>
 				</Form>
-				<Button style={{marginTop: 10}}>Cancel</Button>
 			</div>
 		)
 	}

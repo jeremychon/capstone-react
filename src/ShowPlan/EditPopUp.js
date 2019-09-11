@@ -93,7 +93,7 @@ class EditPopUp extends React.Component {
 							</div>
 						: null}<br />
 						<button>Update</button>
-						<div style={{borderRadius: 50, border: '1px solid black', width: 20}} onClick={this.closeModal}>&times;</div>
+						<button onClick={this.closeModal}>Cancel</button>
 					</form>
 				</Popup>
 			</div>

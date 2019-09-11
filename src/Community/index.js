@@ -82,23 +82,23 @@ class Community extends React.Component {
 		// console.log(this.state, '<--- state in Community');
 		return (
 			<div>
-				<Menu text className='communityFilter'>
+				<Menu text className='community-filter'>
 					<Menu.Item
-						className='communityFilterItem'
+						className='community-filter-item'
 						name='Strength'
 						active={activeItem === 'Strength'}
 						onClick={this.onlyStrength}
 						style={{fontSize: 15}}
 					/>
 					<Menu.Item
-						className='communityFilterItem'
+						className='community-filter-item'
 						name='Weight loss'
 						active={activeItem === 'Weight loss'}
 						onClick={this.onlyWeightLoss}
 						style={{fontSize: 15}}
 					/>
 					<Menu.Item
-						className='communityFilterItem'
+						className='community-filter-item'
 						name='All'
 						active={activeItem === 'All'}
 						onClick={this.allPlans}

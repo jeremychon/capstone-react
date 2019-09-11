@@ -40,26 +40,15 @@ class Header extends React.Component {
 		if ( history ) history.push('/user/' + this.props.userId)
 	}
 
-	toProfileProgress = (e) => {
-		e.preventDefault()
-
-		this.setState({activeNavItem: 'Profile'})
-
-		this.props.showUserPlans(false)
-
-		const { history } = this.props
-		if ( history ) history.push('/user/' + this.props.userId)
-	}
-
 	render() {
 
 		const { activeNavItem } = this.state
 
 		return (
-			<div className='headerBackground'>
-				<div className='headerTitle'>
-					<div className='headerWeightTitle'>weight</div>
-					<div className='headerMateTitle'>MATE</div>
+			<div className='header-background'>
+				<div className='header-title'>
+					<div className='header-weight-title'>weight</div>
+					<div className='header-mate-title'>MATE</div>
 				</div>
 				<Menu className='nav-bar' secondary inverted >
 					<Menu.Item
@@ -83,10 +72,6 @@ class Header extends React.Component {
 							<Dropdown.Item 
 								text='Plans'
 								onClick={this.toProfilePlans}
-							/>
-							<Dropdown.Item 
-								text='Progress'
-								onClick={this.toProfileProgress} 
 							/>
 							<Dropdown.Item 
 								text='Logout'

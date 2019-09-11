@@ -63,7 +63,7 @@ class Comments extends React.Component {
 
 	render() {
 		return (
-			<Comment.Group className='commentSection'>
+			<Comment.Group className='comment-section'>
 				<Header as='h3' dividing>Comments</Header>
 				<CreateComment addComment={this.addComment} /> 
 				<CommentList comments={this.state.comments} />

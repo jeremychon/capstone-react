@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
-/* SIGN IN PAGE */
+/* ========= SIGN IN PAGE ========= */
 
-.signInBackground {
+.signIn-background {
   height: 100%;
   width: 100%;
   background-color: #22242F;
   position: fixed;
 }
 
-.signInTitle {
+.signIn-title {
   height: 40%;
   display: flex;
   flex-wrap: wrap;
@@ -18,7 +18,7 @@
   align-content: center;
 }
 
-.signInWeightTitle {
+.signIn-weight-title {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -30,7 +30,7 @@
   line-height: 56px;
 }
 
-.signInMateTitle {
+.signIn-mate-title {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -42,53 +42,51 @@
   line-height: 70px;
 }
 
-.signInForms {
+.signIn-forms {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
-.signInForm {
+.signIn-form {
   display: flex;
   flex-direction: column;
   text-align: center;
   width: 30%;
 }
 
-.signInTitles {
+.signIn-titles {
   font-family: 'Raleway', sans-serif;
   color: white;
   text-align: center;
   margin-bottom: 20%;
 }
 
-.signInDivider {
+.signIn-divider {
   position: relative;
 }
 
-.loginError {
+.login-error {
   position: relative;
   width: 100%;
 }
 
 
-/* HEADER */
+/* ======= HEADER ======= */
 
-.headerBackground {
+.header-background {
   background-color: #22242F;
   padding-top: 8%;
 }
 
-.headerTitle {
+.header-title {
   position: relative;
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 8%;
-  /*align-items: center;*/
-  /*align-content: center;*/
 }
 
-.headerWeightTitle {
+.header-weight-title {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -100,7 +98,7 @@
   line-height: 56px;
 }
 
-.headerMateTitle {
+.header-mate-title {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -118,9 +116,9 @@
 }
 
 
-/* COMMUNITY */
+/* ====== COMMUNITY ====== */
 
-.communityFilter {
+.community-filter {
   display: flex;
   justify-content: space-evenly;
 }
@@ -129,11 +127,25 @@
   content: none;
 }
 
-.communityFilterItem {
+.community-filter-item {
   width: 30%;
   display: flex;
   justify-content: center;
 }
+
+.ui.card:after {
+  content: none;
+}
+
+.community-plans-list {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.ui.two.cards >.card {
+  width: 250px;
+}
+
 
 /* CREATE PLAN */
 
@@ -200,6 +212,30 @@
   width: 80%;
 }
 
+.edit-form {
+  margin: 20px auto;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.ui.form .field.edit-inputs {
+  width: 50%;
+  margin: 0;
+}
+
+.edit-info {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.ui.button.progress-buttons {
+  margin: 10px;
+  display: flex;
+}
+
 .ui.card.show-plan-head {
   width: 100%;
   margin: 10% 30%;
@@ -217,8 +253,9 @@
 .show-plan-titles {
   text-align: center;
   padding-bottom: 20px;
-  width: 50%;
+  width: 100%;
   font-family: 'Raleway', sans-serif;
+
 }
 
 /* EXERCISE LIST */
@@ -228,14 +265,22 @@
   padding-bottom: 40px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
-.addExerciseButton {
+.show-plan-ex-sections {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.add-exercise-button {
   width: 100%;
   text-align: center;
 }
 
-.createExercise {
+.create-exercise {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -243,15 +288,16 @@
   padding-bottom: 40px;
 }
 
-.createExerciseForm {
+.create-exercise-form {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+  /*flex-direction: column;*/
+  /*margin: 0 auto;*/
+  justify-content: center;
   text-align: center;
 }
 
-.createExerciseInputs {
+.create-exercise-inputs {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -268,6 +314,25 @@
 }
 
 
+/* PROFILE */
+
+.profile-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+h1.profile-page-title {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  width: 100%;
+  margin: 40px 0;
+  letter-spacing: 3px;
+}
+
+h2.profile-page-subtitle {
+  text-align: center;
+}
 
 
 

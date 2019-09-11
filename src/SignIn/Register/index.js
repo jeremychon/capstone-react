@@ -37,9 +37,9 @@ class Register extends React.Component {
 	render() {
 		// console.log(this.state, '<---- state in register');
 		return (
-			<div className='signInForm'>
-				<h2 className='signInTitles'>REGISTER</h2>
-				<Form error className='reglogForm' onSubmit={this.handleSubmit}>
+			<div className='signIn-form'>
+				<h2 className='signIn-titles'>REGISTER</h2>
+				<Form error className='reglog-form' onSubmit={this.handleSubmit}>
 					<Form.Input 
 						type='text' 
 						name='firstName' 
@@ -74,7 +74,7 @@ class Register extends React.Component {
 					/>
 					{this.state.userExists ? 
 						<Message
-						className='registerError'
+						className='register-error'
 							error
 							header='User Already Exists'
 							content='A user with that email is already registered.'

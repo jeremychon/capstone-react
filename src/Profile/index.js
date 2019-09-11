@@ -27,12 +27,14 @@ class Profile extends React.Component {
 			method: 'GET',
 			credentials: 'include'
 		})
+		console.log(userInfo, '<--- userInfo');
 
 		if (userInfo.status !== 200) {
 			throw Error('userInfo is not running')
 		}
 
 		const userInfoResponse = await userInfo.json()
+		console.log(userInfoResponse, '<--- userInfoResponse');
 
 		this.setState({
 			plans: userInfoResponse.plans,
@@ -50,8 +52,8 @@ class Profile extends React.Component {
 	render() {
 		// console.log(this.state, '<----- state in profile');
 		return (
-			<div>
-				<h1>{this.state.firstName} {this.state.lastName}'s Profile</h1>
+			<div className='profile-page'>
+				<h1 className='profile-page-title'>{this.state.firstName} {this.state.lastName}'s Profile</h1>
 				{this.props.profileSwitch ? 
 					<ProfilePlan 
 						showPlan={this.showPlan} 

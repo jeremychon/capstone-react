@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Grid } from 'semantic-ui-react'
 
 
 const CommunityList = (props) => {
@@ -7,8 +7,9 @@ const CommunityList = (props) => {
 	const filteredPlans = props.filterPlans.map((plan) => {
 
 		return (
-			<Card 
+			<Card
 				key={plan._id}
+				className='plan-card'
 				onClick={props.showPlan.bind(null, plan._id)}
 			>
 				<Card.Content>
@@ -27,8 +28,9 @@ const CommunityList = (props) => {
 	const allPlans = props.plans.map((plan) => {
 
 		return (
-			<Card 
-				key={plan._id} 
+			<Card
+				key={plan._id}
+				className='plan-card'
 				onClick={props.showPlan.bind(null, plan._id)}
 			>
 				<Card.Content>
@@ -47,7 +49,9 @@ const CommunityList = (props) => {
 
 	return (
 		<div>
-			{props.filter ? <Card.Group>{filteredPlans}</Card.Group> : <Card.Group>{allPlans}</Card.Group>
+			{props.filter ? 
+				<Grid className='community-plans-list' doubling columns={5}>{filteredPlans}</Grid> : 
+				<Grid className='community-plans-list' doubling columns={5}>{allPlans}</Grid>
 			}
 		</div>
 	)

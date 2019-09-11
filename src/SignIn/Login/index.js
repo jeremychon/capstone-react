@@ -29,9 +29,9 @@ class Login extends React.Component {
 
 	render() {
 		return(
-			<div className='signInForm'>
-				<h2 className='signInTitles'>LOGIN</h2>
-				<Form error className='reglogForm' onSubmit={this.handleSubmit}>
+			<div className='signIn-form'>
+				<h2 className='signIn-titles'>LOGIN</h2>
+				<Form error className='reglog-form' onSubmit={this.handleSubmit}>
 					<Form.Input 
 						type="text" 
 						name="email" 
@@ -48,7 +48,7 @@ class Login extends React.Component {
 					/>
 					{this.state.correctLog ? null : 
 						<Message
-							className='loginError'
+							className='login-error'
 							error
 							header='Incorrect email or password'
 							content={`Register for a new account if you don't already have one.`}

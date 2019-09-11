@@ -32,7 +32,7 @@ class EditProgressWeight extends React.Component {
 		// console.log(this.state, '<---- state in EditProgressWeight');
 		return (
 			<div>
-				<Form onSubmit={this.handleSubmit}>
+				<Form className='edit-form'>
 					<Form.Input
 						type="number" 
 						name='editedWeight'
@@ -40,9 +40,9 @@ class EditProgressWeight extends React.Component {
 						value={this.state.editedWeight}
 						onChange={this.handleChange}
 					/>
-					<Button>Done</Button>
+					<Button className='progress-buttons' onClick={this.handleSubmit}>Done</Button>
+					<Button className='progress-buttons' onClick={this.props.hideProgressModal}>Cancel</Button>
 				</Form>
-				<Button onClick={this.props.hideProgressModal}>Cancel</Button>
 			</div>
 		)
 	}
