@@ -74,7 +74,8 @@ class Register extends React.Component {
 					/>
 					{this.state.userExists ? 
 						<Message
-						className='register-error'
+							inverted
+							className='register-error'
 							error
 							header='User Already Exists'
 							content='A user with that email is already registered.'

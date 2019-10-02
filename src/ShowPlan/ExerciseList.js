@@ -2,7 +2,7 @@ import React from 'react'
 import EditPopUp from './EditPopUp'
 import SetsList from '../Sets/SetsList'
 import CreateSets from '../Sets/CreateSets'
-import { Grid, Icon } from 'semantic-ui-react'
+import { Button, Card, Icon, Grid } from 'semantic-ui-react'
 
 
 class ExerciseList extends React.Component {
@@ -121,29 +121,29 @@ class ExerciseList extends React.Component {
 			.map((ex) => {
 
 				return (
-					<Grid.Column key={ex._id}>
+					<Card key={ex._id}>
 						<br/>
-						<div>Activity: {ex.activity}</div>
-						{this.props.userId === this.props.planUserId ? 
-							<div>
-								<EditPopUp updateExercise={this.props.updateExercise} exercise={ex}/>
-								<div 
-									onClick={this.props.deleteExercise.bind(null, ex._id)}
-								>&times;</div> 
-							</div>
-							: null}
-						<SetsList 
-							exerciseId={ex._id} 
-							sets={this.state.sets}
-							deleteSet={this.deleteSet}
-							changeEditModal={this.changeEditModal}
-							editWeight={this.state.editWeight}
-							editReps={this.state.editReps}
-							editNotes={this.state.editNotes}
-						/>
-						{this.state.creatingSets ? <CreateSets exerciseId={ex._id} addSet={this.addSet}/> : null}
-						<Icon name='add circle' onClick={this.changeSetsModal} />
-					</Grid.Column>
+						<Card.Content>
+							<Card.Description>Activity: {ex.activity}</Card.Description>
+							{this.props.userId === this.props.planUserId ? 
+								<div>
+									<Button onClick={this.props.deleteExercise.bind(null, ex._id)}>Delete</Button>
+									<EditPopUp updateExercise={this.props.updateExercise} exercise={ex}/>
+								</div>
+								: null}
+							<SetsList 
+								exerciseId={ex._id} 
+								sets={this.state.sets}
+								deleteSet={this.deleteSet}
+								changeEditModal={this.changeEditModal}
+								editWeight={this.state.editWeight}
+								editReps={this.state.editReps}
+								editNotes={this.state.editNotes}
+							/>
+							{this.state.creatingSets ? <CreateSets exerciseId={ex._id} addSet={this.addSet}/> : null}
+						</Card.Content>
+						<Icon name='add circle' size='large' onClick={this.changeSetsModal} />
+					</Card>
 				)
 			})
 
@@ -151,19 +151,21 @@ class ExerciseList extends React.Component {
 			.filter(exercise => exercise.type === 'Cardio')
 			.map((ex) => {
 				return (
-					<div key={ex._id}>
+					<Card key={ex._id}>
 						<br/>
-						<div>Activity: {ex.activity}</div>
-						<div>Notes: {ex.description}</div>
-						{this.props.userId === this.props.planUserId ?
-							<div> 
-								<EditPopUp updateExercise={this.props.updateExercise} exercise={ex}/> 
-								<button 
-								onClick={this.props.deleteExercise.bind(null, ex._id)}
-								>Delete</button>
-							</div>
-						: null}
-					</div>
+						<Card.Content>
+							<Card.Description>Activity: {ex.activity}</Card.Description>
+							<Card.Description>Notes: {ex.description}</Card.Description>
+							{this.props.userId === this.props.planUserId ?
+								<div> 
+									<Button 
+										onClick={this.props.deleteExercise.bind(null, ex._id)}
+									>Delete</Button>
+									<EditPopUp updateExercise={this.props.updateExercise} exercise={ex}/> 
+								</div>
+							: null}
+						</Card.Content>
+					</Card>
 				)
 			})
 
@@ -172,11 +174,11 @@ class ExerciseList extends React.Component {
 				<h1 className='show-plan-head'>Exercises</h1>
 				<div className='show-plan-ex-sections'>
 					<h2 className='show-plan-titles'>S & C</h2>
-					<div>{strExercises}</div>
+					<Grid doubling>{strExercises}</Grid>
 				</div>
 				<div className='show-plan-ex-sections'>
 					<h2 className='show-plan-titles'>Cardio</h2>
-					<div>{cardioExercises}</div>
+					<Grid doubling>{cardioExercises}</Grid>
 				</div>
 			</div>
 		)

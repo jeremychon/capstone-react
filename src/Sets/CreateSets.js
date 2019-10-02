@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button, Form } from 'semantic-ui-react'
 
 class CreateSets extends React.Component {
 	constructor() {
@@ -31,28 +32,28 @@ class CreateSets extends React.Component {
 	render() {
 		// console.log(this.state, '<---- state in create sets');
 		return (
-			<form onSubmit={this.handleSubmit}>
-				Weight: <input 
+			<Form onSubmit={this.handleSubmit}>
+				Weight: <Form.Input 
 					type="number" 
 					name='weight' 
 					value={this.state.weight} 
 					placeholder='Weight'
 					onChange={this.handleChange}
 				/>
-				Reps: <input 
+				Reps: <Form.Input 
 					type="number" 
 					name='reps' 
 					value={this.state.reps} 
 					placeholder='# of reps'
 					onChange={this.handleChange}
 				/>
-				Notes: <textarea 
+				Notes: <Form.TextArea 
 					name='notes' 
 					value={this.state.notes}
 					onChange={this.handleChange}
 				/>
-				<button>Done</button>
-			</form>
+				<Button>Done</Button>
+			</Form>
 		)
 	}
 }

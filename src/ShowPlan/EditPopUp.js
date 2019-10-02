@@ -1,5 +1,6 @@
 import React from 'react'
 import Popup from 'reactjs-popup'
+import { Form, Button } from 'semantic-ui-react'
 
 class EditPopUp extends React.Component {
 	constructor() {
@@ -47,21 +48,26 @@ class EditPopUp extends React.Component {
 	
 	render() {
 		// console.log(this.state, '<--- state in edit pop up');
+		const options = [
+			{key: 'Strength & Conditioning', text: 'Strength & Conditioning', value: 'Strength & Conditioning'},
+			{key: 'Cardio', text: 'Cardio', value: 'Cardio'}
+		]
 		return (
 			<div>
-				<button onClick={this.openModal} >Edit</button>
+				<Button onClick={this.openModal} >Edit</Button>
 				<Popup 
 					open={this.state.open}
 					closeOnDocumentClick
 					onClose={this.closeModal}
 				>
-					<form onSubmit={this.handleSubmit}>
-						<select name="type" onChange={this.handleChange}>
-							<option defaultValue={this.props.exercise.type}>{this.props.exercise.type}</option>
-							<option value={this.props.exercise.type === 'Strength & Conditioning' ? 'Cardio' : 'Strength & Conditioning'}
-							>{this.props.exercise.type === 'Strength & Conditioning' ? 'Cardio' : 'Strength & Conditioning'}</option>
-						</select>
-						Exercise: <input 
+					<Form onSubmit={this.handleSubmit}>
+						<Form.Select
+							placeholder='Select an option'
+							options={options}
+							name="type" 
+							onChange={this.handleChange}
+						/>
+						Exercise: <Form.Input 
 							list="activity" 
 							name="activity"
 							autoComplete="off" 
@@ -84,7 +90,7 @@ class EditPopUp extends React.Component {
 								</datalist>
 								<div>
 									Notes: 
-									<textarea 
+									<Form.TextArea 
 										name="description" 
 										value={this.state.description}  
 										onChange={this.handleChange}
@@ -92,9 +98,9 @@ class EditPopUp extends React.Component {
 								</div>
 							</div>
 						: null}<br />
-						<button>Update</button>
-						<button onClick={this.closeModal}>Cancel</button>
-					</form>
+						<Button>Update</Button>
+						<Button onClick={this.closeModal}>Cancel</Button>
+					</Form>
 				</Popup>
 			</div>
 		)

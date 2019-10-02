@@ -48,6 +48,7 @@ class Login extends React.Component {
 					/>
 					{this.state.correctLog ? null : 
 						<Message
+							inverted
 							className='login-error'
 							error
 							header='Incorrect email or password'

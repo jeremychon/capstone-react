@@ -47,6 +47,7 @@ class ShowPlan extends React.Component {
 		this.setState({progressModal: false})
 	}
 
+	// Changes the weight of the user now and changes the progress bar
 	handleProgressWeight = async (weight) => {
 		const diffToGoal = this.state.plan.current - this.state.plan.goal
 		const progressMade = this.state.plan.current - weight

@@ -54,7 +54,7 @@ class Comments extends React.Component {
 
 			const addedCommentRes = await addedComment.json()
 
-			this.setState({comment: [...this.state.comments, addedCommentRes.data]})
+			this.setState({comments: [...this.state.comments, addedCommentRes.data]})
 
 		} catch (err) {
 			console.log(err);

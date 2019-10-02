@@ -15,7 +15,7 @@ const CommentList = (props) => {
 	})
 	
 	return (
-		<div>{allComments}</div>
+		<div style={{margin: '20% 0 20% 0'}}>{allComments}</div>
 	)
 }
 
