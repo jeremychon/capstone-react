@@ -8,28 +8,25 @@ const SetsList = (props) => {
 	const filterSets = props.sets.filter(set => set.exerciseId === props.exerciseId)
 		.map((s, i) => {
 			return (
-				<Card key={s._id}>
-					<Card.Content>
-						<Card.Meta>{i + 1}</Card.Meta> 
-						<Card.Description> 
-							Weight: {s.weight} lbs
-						</Card.Description>
-						<Card.Description>
-							Reps: {s.reps}
-						</Card.Description>
-						<Card.Description>
-							Notes: {s.notes}
-						</Card.Description>
-					</Card.Content>
-					<button onClick={props.deleteSet.bind(null, s)}>Delete</button>
-				</Card>
+				<div key={s._id} className='set'>
+					<div style={{width: '10%'}}>{i + 1}</div>
+					<div className='set-info'>
+						<div>Weight: {s.weight} lbs</div>
+						<div>Reps: {s.reps}</div>
+						<div>Notes: {s.notes}</div>
+					</div>
+					<button 
+						onClick={props.deleteSet.bind(null, s)}
+						className='delete-set-button'
+					>-</button>
+				</div>
 			)
 		})
 	
 	return (
-		<Card.Group>
+		<div className='sets-list'>
 			{filterSets}
-		</Card.Group>
+		</div>
 	)
 }
 

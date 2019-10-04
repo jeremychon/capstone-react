@@ -6,18 +6,18 @@ import CreatePlan from './CreatePlan'
 import ShowPlan   from './ShowPlan'
 import Profile 	  from './Profile'
 import Header 	  from './Header'
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
 	constructor() {
 		super()
 
 		this.state = {
-			firstName: '',
-			lastName: '',
-			userId: '',
+			firstName: 'Jeremy',
+			lastName: 'Chon',
+			userId: '5d791629f73734fd0e984bf0',
 			profPic: null,
-			loggedIn: false,
+			loggedIn: true,
 			correctLog: true
 		}
 	}

@@ -121,29 +121,47 @@ class ExerciseList extends React.Component {
 			.map((ex) => {
 
 				return (
-					<Card key={ex._id}>
-						<br/>
-						<Card.Content>
-							<Card.Description>Activity: {ex.activity}</Card.Description>
-							{this.props.userId === this.props.planUserId ? 
-								<div>
-									<Button onClick={this.props.deleteExercise.bind(null, ex._id)}>Delete</Button>
-									<EditPopUp updateExercise={this.props.updateExercise} exercise={ex}/>
-								</div>
-								: null}
-							<SetsList 
-								exerciseId={ex._id} 
-								sets={this.state.sets}
-								deleteSet={this.deleteSet}
-								changeEditModal={this.changeEditModal}
-								editWeight={this.state.editWeight}
-								editReps={this.state.editReps}
-								editNotes={this.state.editNotes}
-							/>
-							{this.state.creatingSets ? <CreateSets exerciseId={ex._id} addSet={this.addSet}/> : null}
-						</Card.Content>
-						<Icon name='add circle' size='large' onClick={this.changeSetsModal} />
-					</Card>
+					<div key={ex._id} className='exercise-item'>
+						<div>
+							<div className='exercise-item-activity'>{ex.activity}</div>
+						</div>
+						{
+							this.props.userId === this.props.planUserId ?
+							<div className='exercise-button-group'>
+								<button
+									onClick={this.props.deleteExercise.bind(null, ex._id)}
+									className='exercise-button'
+								>DELETE</button>
+								<EditPopUp
+									updateExercise={this.props.updateExercise} 
+									exercise={ex}
+								/>
+							</div> : null
+						}
+						<SetsList 
+							exerciseId={ex._id} 
+							sets={this.state.sets}
+							deleteSet={this.deleteSet}
+							changeEditModal={this.changeEditModal}
+							editWeight={this.state.editWeight}
+							editReps={this.state.editReps}
+							editNotes={this.state.editNotes}
+						/>
+						{
+							this.state.creatingSets ? 
+							<div>
+								<CreateSets exerciseId={ex._id} addSet={this.addSet}/>
+							</div>
+							: null
+						}
+						{
+							this.props.userId === this.props.planUserId ? 
+							<div 
+								className='add-set-button'
+								onClick={this.changeSetsModal}
+							>+</div> : null
+						}
+					</div>
 				)
 			})
 
@@ -151,21 +169,26 @@ class ExerciseList extends React.Component {
 			.filter(exercise => exercise.type === 'Cardio')
 			.map((ex) => {
 				return (
-					<Card key={ex._id}>
-						<br/>
-						<Card.Content>
-							<Card.Description>Activity: {ex.activity}</Card.Description>
-							<Card.Description>Notes: {ex.description}</Card.Description>
-							{this.props.userId === this.props.planUserId ?
-								<div> 
-									<Button 
-										onClick={this.props.deleteExercise.bind(null, ex._id)}
-									>Delete</Button>
-									<EditPopUp updateExercise={this.props.updateExercise} exercise={ex}/> 
-								</div>
-							: null}
-						</Card.Content>
-					</Card>
+					<div key={ex._id} className='exercise-item'>
+						<div>
+							<div className='exercise-item-activity'>{ex.activity}</div>
+							<div>{ex.description}</div>
+						</div>
+						{
+							this.props.userId === this.props.planUserId ?
+							<div className='exercise-button-group'>
+								<button
+									onClick={this.props.deleteExercise.bind(null, ex._id)}
+									className='exercise-button'
+								>DELETE</button>
+								<EditPopUp 
+									updateExercise={this.props.updateExercise} 
+									exercise={ex}
+								/>
+							</div>
+							: null
+						}
+					</div>
 				)
 			})
 
@@ -174,11 +197,11 @@ class ExerciseList extends React.Component {
 				<h1 className='show-plan-head'>Exercises</h1>
 				<div className='show-plan-ex-sections'>
 					<h2 className='show-plan-titles'>S & C</h2>
-					<Grid doubling>{strExercises}</Grid>
+					<div className='all-exercises'>{strExercises}</div>
 				</div>
 				<div className='show-plan-ex-sections'>
 					<h2 className='show-plan-titles'>Cardio</h2>
-					<Grid doubling>{cardioExercises}</Grid>
+					<div className='all-exercises'>{cardioExercises}</div>
 				</div>
 			</div>
 		)

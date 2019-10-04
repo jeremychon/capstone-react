@@ -90,6 +90,7 @@ class Sets extends React.Component {
 		// console.log(this.state , '<---- state in sets');
 		return (
 			<div>
+				<hr/>
 				<h3>Sets</h3>
 				<SetsList deleteSet={this.deleteSet} sets={this.state.sets}/>
 				{this.state.creating ? 

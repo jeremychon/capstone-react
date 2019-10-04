@@ -65,9 +65,17 @@ class CreateExercise extends React.Component {
 								onChange={this.handleChange}
 							/>
 						</div>
-					: null}<br />
-					<Button onClick={this.props.addExercise.bind(null, this.state)}>Create</Button>
-					<Button onClick={this.props.hideCreateExercise} >Cancel</Button>
+					: null}
+					<div className='create-exercise-button-group'>
+						<button 
+							onClick={this.props.addExercise.bind(null, this.state)}
+							className='create-exercise-button'
+						>Create</button>
+						<button 
+							onClick={this.props.hideCreateExercise}
+							className='create-exercise-button'
+						>Cancel</button>
+					</div>
 				</Form>
 			</div>
 		)

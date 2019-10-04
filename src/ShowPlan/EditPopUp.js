@@ -53,9 +53,10 @@ class EditPopUp extends React.Component {
 			{key: 'Cardio', text: 'Cardio', value: 'Cardio'}
 		]
 		return (
-			<div>
-				<Button onClick={this.openModal} >Edit</Button>
-				<Popup 
+			<div style={{width: '40%'}}>
+				<button onClick={this.openModal} id='exercise-edit-button'>EDIT</button>
+				<Popup
+					className='edit-exercise-popup'
 					open={this.state.open}
 					closeOnDocumentClick
 					onClose={this.closeModal}

@@ -316,7 +316,7 @@ class ShowPlan extends React.Component {
 						<Progress id='progress-bar' percent={this.state.plan.progressPercent} progress />
 					: null}
 					
-					{this.state.plan.user === this.props.userId ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
+					{this.state.plan.user === this.props.userId && this.state.plan.goalType === 'Weight loss' ? <Button basic onClick={this.showProgressModal}>Progress</Button> : null}
 					{this.state.progressModal ? 
 						<EditProgressWeight 
 							progressWeight={this.state.progressWeight} 
@@ -344,7 +344,7 @@ class ShowPlan extends React.Component {
 
 				{this.state.plan.user === this.props.userId ? 
 					<div className='create-exercise'>
-						<div className='add-exercise-button' onClick={this.creatingToggle}>+ Add Exercise</div>
+						<div className='add-exercise-button' onClick={this.creatingToggle}>+ add exercise</div>
 						{this.state.creatingX ? <CreateExercise addExercise={this.addExercise} hideCreateExercise={this.hideCreateExercise}/> : null}
 					</div>
 				: null}
