@@ -7,7 +7,6 @@ const CommentList = (props) => {
 		return (
 			<Comment key={comm._id}>
 				<Comment.Content>
-					<Comment.Author>{comm.user.firstName} {comm.user.lastName}</Comment.Author>
 					<Comment.Text>{comm.comment}</Comment.Text>
 				</Comment.Content>
 			</Comment>
@@ -15,7 +14,7 @@ const CommentList = (props) => {
 	})
 	
 	return (
-		<div style={{margin: '20% 0 20% 0'}}>{allComments}</div>
+		<div style={{margin: '10% 0 20% 0'}}>{allComments}</div>
 	)
 }
 

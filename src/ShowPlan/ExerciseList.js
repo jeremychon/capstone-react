@@ -2,8 +2,6 @@ import React from 'react'
 import EditPopUp from './EditPopUp'
 import SetsList from '../Sets/SetsList'
 import CreateSets from '../Sets/CreateSets'
-import { Button, Card, Icon, Grid } from 'semantic-ui-react'
-
 
 class ExerciseList extends React.Component {
 	constructor() {
@@ -13,10 +11,7 @@ class ExerciseList extends React.Component {
 			creatingSets: false,
 			addedSet: {},
 			deletedSet: {},
-			sets: [],
-			editWeight: false,
-			editReps: false,
-			editNotes: false
+			sets: []
 		}
 	}
 
@@ -143,9 +138,6 @@ class ExerciseList extends React.Component {
 							sets={this.state.sets}
 							deleteSet={this.deleteSet}
 							changeEditModal={this.changeEditModal}
-							editWeight={this.state.editWeight}
-							editReps={this.state.editReps}
-							editNotes={this.state.editNotes}
 						/>
 						{
 							this.state.creatingSets ? 

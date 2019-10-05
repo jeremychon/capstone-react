@@ -29,7 +29,7 @@ class App extends React.Component {
 				credentials: 'include',
 				body: JSON.stringify(data),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-type': 'application/json'
 				}
 			});
 

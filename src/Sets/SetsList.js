@@ -3,7 +3,6 @@ import EditSet from './EditSet'
 import { Card } from 'semantic-ui-react'
 
 const SetsList = (props) => {
-	console.log(props, '<---- props in sets list');
 
 	const filterSets = props.sets.filter(set => set.exerciseId === props.exerciseId)
 		.map((s, i) => {
@@ -15,10 +14,14 @@ const SetsList = (props) => {
 						<div>Reps: {s.reps}</div>
 						<div>Notes: {s.notes}</div>
 					</div>
-					<button 
-						onClick={props.deleteSet.bind(null, s)}
-						className='delete-set-button'
-					>-</button>
+					{
+						props.userId === props.planUserId ? 
+						<button 
+							onClick={props.deleteSet.bind(null, s)}
+							className='delete-set-button'
+						>-</button>
+						: null
+					}
 				</div>
 			)
 		})

@@ -6,7 +6,7 @@ import { Divider } from 'semantic-ui-react'
 
 const SignIn = (props) => {
 	return (
-		<div className='signIn-background'>
+		<div className='signin-background'>
 			<div className='signIn-title'>
 				<div className='signIn-weight-title'>weight</div>
 				<div className='signIn-mate-title'>MATE</div>

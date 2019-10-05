@@ -38,13 +38,14 @@ class Comments extends React.Component {
 	}
 
 	addComment = async (comment) => {
+		console.log(comment, '<---- comment in addComment');
 		try {
 			const addedComment = await fetch(process.env.REACT_APP_BACKEND_URL + '/comment/' + this.props.plan._id, {
 				method: 'POST',
 				credentials: 'include',
 				body: JSON.stringify(comment),
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-type': 'application/json'
 				}
 			})
 

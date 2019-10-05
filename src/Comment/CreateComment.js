@@ -25,7 +25,6 @@ class CreateComment extends React.Component {
 	}
 
 	render() {
-		// console.log(this.state, '<--- state in create comment');
 		return (
 			<div>
 				<Form onSubmit={this.handleSubmit}>
