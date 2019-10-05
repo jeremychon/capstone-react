@@ -54,18 +54,10 @@ class Profile extends React.Component {
 		return (
 			<div className='profile-page'>
 				<h1 className='profile-page-title'>{this.state.firstName} {this.state.lastName}'s Profile</h1>
-				{this.props.profileSwitch ? 
-					<ProfilePlan 
-						showPlan={this.showPlan} 
-						plans={this.state.plans}
-					/> : null
-				}
-				{this.props.profileSwitch ? 
-					null : 
-					<ProfileProgress 
-						plans={this.state.plans}
-					/>
-				}
+				<ProfilePlan 
+					showPlan={this.showPlan} 
+					plans={this.state.plans}
+				/>
 			</div>
 		)
 	}

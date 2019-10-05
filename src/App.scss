@@ -89,7 +89,7 @@ sass source/stylesheets/index.scss build/stylesheets/index.css
 .header-title {
   display: flex;
   flex-wrap: wrap;
-  padding-top: 40px;
+  padding-top: 60px;
 }
 
 .header-weight-title {
@@ -476,6 +476,38 @@ h1.profile-page-title {
 
 h2.profile-page-subtitle {
   text-align: center;
+}
+
+.profile-plan-card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px;
+  width: 200px;
+  height: 150px;
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+}
+
+.profile-plan-card-info {
+  height: 85px;
+}
+
+#wl-plan-card-info {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+.profile-plans-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 
