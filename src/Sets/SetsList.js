@@ -3,6 +3,7 @@ import EditSet from './EditSet'
 import { Card } from 'semantic-ui-react'
 
 const SetsList = (props) => {
+	console.log(props, '<---- props in Sets List');
 
 	const filterSets = props.sets.filter(set => set.exerciseId === props.exerciseId)
 		.map((s, i) => {

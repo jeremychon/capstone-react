@@ -109,7 +109,7 @@ class ExerciseList extends React.Component {
 	}
 
 	render() {
-		// console.log(this.state, '<---- state in exercise list');
+		console.log(this.props, '<---- props in exercise list');
 
 		const strExercises = this.props.exercises
 			.filter(exercise => exercise.type === 'Strength & Conditioning')
@@ -137,7 +137,8 @@ class ExerciseList extends React.Component {
 							exerciseId={ex._id} 
 							sets={this.state.sets}
 							deleteSet={this.deleteSet}
-							changeEditModal={this.changeEditModal}
+							planUserId={this.props.planUserId}
+							userId={this.props.userId}
 						/>
 						{
 							this.state.creatingSets ? 

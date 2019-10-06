@@ -13,14 +13,15 @@ const ProfilePlan = (props) => {
 					{
 						plan.goalType === 'Weight loss' ? 
 						<div>
-							<div className='profile-plan-card-info' id='wl-plan-card-info'>
-								{plan.current} <Icon name='angle double right'/> {plan.goal}
+							<div className='wl-plan-card-info'>
+								{plan.current} <Icon style={{margin: 0}}name='angle double right'/> {plan.goal}
 							</div>
 							<Label as='a' color='red' ribbon>WL</Label>
 						</div>
 						: 
 						<div>
-							<div className='profile-plan-card-info'>{plan.purpose}</div>
+							<div className='profile-plan-card-title'>Purpose:</div>
+							<div className='profile-plan-card-par'>{plan.purpose}</div>
 							<Label as='a' color='blue' ribbon> S</Label>
 						</div>
 					}

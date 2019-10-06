@@ -16,7 +16,7 @@ const CommunityList = (props) => {
 				{
 					plan.goalType === 'Weight loss' ? 
 					<div className='plan-card-info'>
-						{plan.current} <Icon name='angle double right'/> {plan.goal}
+						{plan.current} <Icon style={{margin: 0}} name='angle double right'/> {plan.goal}
 					</div>
 					: <div className='plan-card-info'>{plan.purpose}</div>
 				}
@@ -42,7 +42,7 @@ const CommunityList = (props) => {
 				{
 					plan.goalType === 'Weight loss' ? 
 					<div className='plan-card-info'>
-						{plan.current} <Icon name='angle double right'/> {plan.goal}
+						{plan.current} <Icon style={{margin: 0}} name='angle double right'/> {plan.goal}
 					</div>
 					: <div className='plan-card-info'>{plan.purpose}</div>
 				}
